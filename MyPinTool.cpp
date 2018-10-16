@@ -1,0 +1,311 @@
+
+/*! @file
+ *  This is an example of the PIN tool that demonstrates some basic PIN APIs 
+ *  and could serve as the starting point for developing your first PIN tool
+ */
+#include "pin.H"
+#include "MyPinToolUtils.h"
+#include <iostream>
+#include <fstream>
+
+/* ================================================================== */
+// Global variables 
+/* ================================================================== */
+
+UINT64 insCount = 0;        //number of dynamically executed instructions
+UINT64 bblCount = 0;        //number of dynamically executed basic blocks
+UINT64 threadCount = 0;     //total number of threads, including main thread
+
+std::ostream * out = &cerr;
+PIN_LOCK lock;
+// Force each thread's data to be in its own data cache line so that
+// multiple threads do not contend for the same data cache line.
+// This avoids the false sharing problem.
+#define PADSIZE 56  // 64 byte line size: 64-8
+
+// a running count of the instructions
+class thread_data_t
+{
+  public:
+    thread_data_t() : _count(0) {}
+    UINT64 _count;
+    UINT8 _pad[PADSIZE];
+};
+
+// key for accessing TLS storage in the threads. initialized once in main()
+static  TLS_KEY tls_key = INVALID_TLS_KEY;
+
+/* ===================================================================== */
+// Command line switches
+/* ===================================================================== */
+KNOB<string> KnobOutputFile(KNOB_MODE_WRITEONCE,  "pintool",
+    "o", "", "specify file name for MyPinTool output");
+
+KNOB<BOOL>   KnobCount(KNOB_MODE_WRITEONCE,  "pintool",
+    "count", "1", "count instructions, basic blocks and threads in the application");
+
+
+/* ===================================================================== */
+// Utilities
+/* ===================================================================== */
+
+/*!
+ *  Print out help message.
+ */
+INT32 Usage()
+{
+    cerr << "This tool prints out the number of dynamically executed " << endl <<
+            "instructions, basic blocks and threads in the application." << endl << endl;
+
+    cerr << KNOB_BASE::StringKnobSummary() << endl;
+
+    return -1;
+}
+
+/* ===================================================================== */
+// Analysis routines
+/* ===================================================================== */
+
+// function to access thread-specific data
+thread_data_t* get_tls(THREADID threadid)
+{
+    thread_data_t* tdata = 
+          static_cast<thread_data_t*>(PIN_GetThreadData(tls_key, threadid));
+    return tdata;
+}
+
+// This function is called before every block
+VOID PIN_FAST_ANALYSIS_CALL docount(UINT32 c, THREADID threadid)
+{
+    thread_data_t* tdata = get_tls(threadid);
+    tdata->_count += c;
+}
+
+// Pin calls this function every time a new img is unloaded
+// You can't instrument an image that is about to be unloaded
+VOID ImageUnload(IMG img, VOID *v)
+{
+    *out << "Unloading " << IMG_Name(img) << endl;
+}
+
+// This routine is executed for each image.
+VOID SetupLocks(IMG img, VOID *v)
+{
+    RTN rtn; 
+    *out << "Loading " << IMG_Name(img) << ", Image id = " << IMG_Id(img) << endl;
+  
+    rtn = RTN_FindByName(img, "pthread_mutex_lock");
+    
+    if ( RTN_Valid( rtn ))
+    {
+        RTN_Open(rtn);
+        
+        RTN_InsertCall(rtn, IPOINT_BEFORE, AFUNPTR(BeforeMutexLock),
+                      IARG_FUNCARG_ENTRYPOINT_REFERENCE , 0,
+                       IARG_THREAD_ID, IARG_END);
+
+        RTN_Close(rtn);
+    }
+
+    rtn = RTN_FindByName(img, "pthread_mutex_unlock");
+    
+    if ( RTN_Valid( rtn ))
+    {
+        RTN_Open(rtn);
+        
+        RTN_InsertCall(rtn, IPOINT_BEFORE, AFUNPTR(BeforeMutexUnlock),
+                       IARG_FUNCARG_ENTRYPOINT_REFERENCE , 0,
+                       IARG_THREAD_ID, IARG_END);
+
+        RTN_Close(rtn);
+    }
+
+    rtn = RTN_FindByName(img, "sem_wait");
+    
+    if ( RTN_Valid( rtn ))
+    {
+        RTN_Open(rtn);
+        
+        RTN_InsertCall(rtn, IPOINT_BEFORE, AFUNPTR(BeforeSemWait),
+                       IARG_FUNCARG_ENTRYPOINT_VALUE, 0,
+                       IARG_THREAD_ID, IARG_END);
+
+        RTN_Close(rtn);
+    }
+
+    rtn = RTN_FindByName(img, "sem_post");
+    
+    if ( RTN_Valid( rtn ))
+    {
+        RTN_Open(rtn);
+        
+        RTN_InsertCall(rtn, IPOINT_BEFORE, AFUNPTR(BeforeSemPost),
+                       IARG_FUNCARG_ENTRYPOINT_VALUE, 0,
+                       IARG_THREAD_ID, IARG_END);
+
+        RTN_Close(rtn);
+    }
+
+}
+/*!
+ * Increase counter of the executed basic blocks and instructions.
+ * This function is called for every basic block when it is about to be executed.
+ * @param[in]   numInstInBbl    number of instructions in the basic block
+ * @note use atomic operations for multi-threaded applications
+ */
+// VOID CountBbl(UINT32 numInstInBbl)
+// {
+//     bblCount++;
+//     insCount += numInstInBbl;
+// }
+
+/* ===================================================================== */
+// Instrumentation callbacks
+/* ===================================================================== */
+
+/*!
+ * Insert call to the CountBbl() analysis routine before every basic block 
+ * of the trace.
+ * This function is called every time a new trace is encountered.
+ * @param[in]   trace    trace to be instrumented
+ * @param[in]   v        value specified by the tool in the TRACE_AddInstrumentFunction
+ *                       function call
+ */
+// Pin calls this function every time a new basic block is encountered.
+// It inserts a call to docount.
+VOID Trace(TRACE trace, VOID *v)
+{
+    // Visit every basic block  in the trace
+    for (BBL bbl = TRACE_BblHead(trace); BBL_Valid(bbl); bbl = BBL_Next(bbl))
+    {
+        // Insert a call to docount for every bbl, passing the number of instructions.
+
+        BBL_InsertCall(bbl, IPOINT_ANYWHERE, (AFUNPTR)docount, IARG_FAST_ANALYSIS_CALL,
+                       IARG_UINT32, BBL_NumIns(bbl), IARG_THREAD_ID, IARG_END);
+    }
+}
+
+/*!
+ * Increase counter of threads in the application.
+ * This function is called for every thread created by the application when it is
+ * about to start running (including the root thread).
+ * @param[in]   threadIndex     ID assigned by PIN to the new thread
+ * @param[in]   ctxt            initial register state for the new thread
+ * @param[in]   flags           thread creation flags (OS specific)
+ * @param[in]   v               value specified by the tool in the 
+ *                              PIN_AddThreadStartFunction function call
+ */
+VOID ThreadStart(THREADID threadIndex, CONTEXT *ctxt, INT32 flags, VOID *v)
+{
+     PIN_GetLock(&lock, threadIndex+1);
+    threadCount++;
+     PIN_ReleaseLock(&lock);
+    thread_data_t* tdata = new thread_data_t;
+    if (PIN_SetThreadData(tls_key, tdata, threadIndex) == FALSE)
+    {
+        *out << "PIN_SetThreadData failed" << endl;
+        PIN_ExitProcess(1);
+    }
+}
+
+// This function is called when the thread exits
+VOID ThreadFini(THREADID threadIndex, const CONTEXT *ctxt, INT32 code, VOID *v)
+{
+    thread_data_t* tdata = static_cast<thread_data_t*>(PIN_GetThreadData(tls_key, threadIndex));
+    *out << "Count[" << decstr(threadIndex) << "] = " << tdata->_count << endl;
+    //delete tdata;
+}
+
+/*!
+ * Print out analysis results.
+ * This function is called when the application exits.
+ * @param[in]   code            exit code of the application
+ * @param[in]   v               value specified by the tool in the 
+ *                              PIN_AddFiniFunction function call
+ */
+VOID Fini(INT32 code, VOID *v)
+{
+    *out <<  "===============================================" << endl;
+    *out <<  "MyPinTool analysis results: " << endl;
+    *out <<  "Number of instructions: " << insCount  << endl;
+    *out <<  "Number of basic blocks: " << bblCount  << endl;
+    *out <<  "Number of threads: " << threadCount  << endl;
+    for (UINT32 t=0; t<threadCount; t++)
+    {
+        thread_data_t* tdata = get_tls(t);
+        *out << "Count[" << decstr(t) << "]= " << tdata->_count << endl;
+        delete tdata;
+    }
+    *out <<  "===============================================" << endl;
+}
+
+/*!
+ * The main procedure of the tool.
+ * This function is called when the application image is loaded but not yet started.
+ * @param[in]   argc            total number of elements in the argv array
+ * @param[in]   argv            array of command line arguments, 
+ *                              including pin -t <toolname> -- ...
+ */
+int main(int argc, char *argv[])
+{
+    // Initialize the pin lock
+    PIN_InitLock(&lock);
+    // Initialize PIN library. Print help message if -h(elp) is specified
+    // in the command line or the command line is invalid 
+    if( PIN_Init(argc,argv) )
+    {
+        return Usage();
+    }
+
+    PIN_InitSymbols();
+
+        // Obtain  a key for TLS storage.
+    tls_key = PIN_CreateThreadDataKey(NULL);
+    if (tls_key == INVALID_TLS_KEY)
+    {
+        cerr << "number of already allocated keys reached the MAX_CLIENT_TLS_KEYS limit" << endl;
+        PIN_ExitProcess(1);
+    }
+    
+    string fileName = KnobOutputFile.Value();
+
+    if (!fileName.empty()) { out = new std::ofstream(fileName.c_str());}
+
+    if (KnobCount)
+    {
+        // Register ImageLoad to be called when each image is loaded.
+        IMG_AddInstrumentFunction(SetupLocks, 0);
+
+        // Register ImageUnload to be called when an image is unloaded
+        IMG_AddUnloadFunction(ImageUnload, 0);
+
+        // Register function to be called to instrument traces
+        TRACE_AddInstrumentFunction(Trace, NULL);
+
+        // Register function to be called for every thread before it starts running
+        PIN_AddThreadStartFunction(ThreadStart, NULL);
+
+        // Register function to be called when the application exits
+        PIN_AddFiniFunction(Fini, NULL);
+
+        // Register Fini to be called when thread exits.
+        PIN_AddThreadFiniFunction(ThreadFini, NULL);
+    }
+    
+    cerr <<  "===============================================" << endl;
+    cerr <<  "This application is instrumented by MyPinTool" << endl;
+    if (!KnobOutputFile.Value().empty()) 
+    {
+        cerr << "See file " << KnobOutputFile.Value() << " for analysis results" << endl;
+    }
+    cerr <<  "===============================================" << endl;
+
+    // Start the program, never returns
+    PIN_StartProgram();
+    
+    return 0;
+}
+
+/* ===================================================================== */
+/* eof */
+/* ===================================================================== */
