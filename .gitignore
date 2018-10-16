@@ -1,11 +1,16 @@
 # Prerequisites
 *.d
 
+#log file extensions
+.log
+.txt
+
 # Compiled Object files
 *.slo
 *.lo
 *.o
 *.obj
+*.so
 
 # Precompiled Headers
 *.gch
