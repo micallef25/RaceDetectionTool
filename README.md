@@ -28,9 +28,9 @@ Our version is developed on the Pin 3.7version on a 64 bit Linux OS.
 * in the RaceDetection Directory type in something like
 ../../../pin -t obj-intel64/MyPinTool.so -- ../../../../race_tests/race
 
-this command line does the following
-../../../pin --> executes the intel pin tool
--t obj-intel64/MyPinTool.so --> -t option tells the pin executable which tool .so file to use. In this case it is our RaceDetection tool called MyPinTool. 
--- ../../../../race_tests/race This tells what program we are doing our dynamic analysis on
+this command line does the following:
+* ../../../pin --> executes the intel pin tool
+* -t obj-intel64/MyPinTool.so --> -t option tells the pin executable which tool .so file to use. In this case it is our RaceDetection tool called MyPinTool. 
+* -- ../../../../race_tests/race This tells what program we are doing our dynamic analysis on
 
 
