@@ -26,7 +26,7 @@ Our version is developed on the Pin 3.7version on a 64 bit Linux OS.
 
 # Run
 * in the RaceDetection Directory type in something like
-../../../pin -t obj-intel64/MyPinTool.so -- ../../../../race_tests/race
+* ../../../pin -t obj-intel64/MyPinTool.so -- ../../../../race_tests/race
 
 this command line does the following:
 * ../../../pin --> executes the intel pin tool
