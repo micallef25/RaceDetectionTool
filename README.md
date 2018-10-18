@@ -20,7 +20,7 @@ Our version is developed on the Pin 3.7version on a 64 bit Linux OS.
 * Navigate to the unpacked pin tools directory (mine is "pin-3.7-97619/source/tools")
 * clone the repo into this directory
 * in this same tools directory modify the makefile and add the new folder into the section ALL_TEST_DIRS (should append RaceDetectionTool)
-* save and make Pin uses a CMake style makefile structure so it will build every test in this directory
+* save. Pin uses a CMake style makefile structure so it will build every test in this directory if make command is executed inside the tool directory.
 * cd into RaceDetectionTool and type make to make the .so and .o files for the Race Detection Tool
 * If no failures The tool is set to use
 
