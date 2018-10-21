@@ -58,27 +58,27 @@ VOID BeforeMutexUnlock(char* name,ADDRINT* lock_name, THREADID threadid )
 }
 
 // Print a memory read record
-VOID RecordMemRead(REG reg, VOID * ip, VOID * addr,ADDRINT read, THREADID threadid )
+VOID RecordMemRead(REG reg, VOID * ip, VOID * addr, THREADID threadid )
 {
     // fprintf(trace,"%p: R %p\n", ip, addr);
     // pin_tracker read_track;
 
     PIN_GetLock(&lock, threadid+1);
-    if((ADDRINT)ip < High && read > Start_addr)
+    if((ADDRINT)ip < High && (ADDRINT)addr > Start_addr)
     {
-        *out << "thread ["<< threadid <<"] " <<"R " << addr << " ip: " << ip <<" read: " << read << endl;
+        *out << "thread ["<< threadid <<"] " <<"R " << addr << " ip: " << ip << endl;
     }
     PIN_ReleaseLock(&lock);
 }
 
 // Print a memory write record
-VOID RecordMemWrite(VOID * ip, VOID * addr,ADDRINT write, THREADID threadid )
+VOID RecordMemWrite(VOID * ip, VOID * addr, THREADID threadid )
 {
     
     PIN_GetLock(&lock, threadid+1);
-    if((ADDRINT)ip < High && write > Start_addr)
+    if((ADDRINT)ip < High && (ADDRINT)addr > Start_addr)
     {
-        *out << "thread ["<< threadid <<"] "<< "W " << (ADDRINT)addr  <<  " ip: " << ip  << " write " << write << endl;
+        *out << "thread ["<< threadid <<"] "<< "W " << addr  <<  " ip: " << ip  << endl;
     }
     PIN_ReleaseLock(&lock);
 }

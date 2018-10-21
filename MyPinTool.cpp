@@ -286,7 +286,7 @@ VOID Instruction(INS ins, VOID *v)
                 REG(INS_OperandReg(ins, 0)),
                 IARG_INST_PTR,
                 IARG_MEMORYOP_EA, memOp,
-                IARG_MEMORYREAD_EA,
+                // IARG_MEMORYREAD_EA,
                 IARG_THREAD_ID,
                 IARG_END);
         }
@@ -300,7 +300,7 @@ VOID Instruction(INS ins, VOID *v)
                 ins, IPOINT_BEFORE, (AFUNPTR)RecordMemWrite,
                 IARG_INST_PTR,
                 IARG_MEMORYOP_EA, memOp,
-                IARG_MEMORYWRITE_EA,
+                // IARG_MEMORYWRITE_EA,
                 IARG_THREAD_ID,
                 IARG_END);
         }
