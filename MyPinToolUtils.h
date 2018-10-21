@@ -16,9 +16,13 @@ VOID BeforeMutexLock( char* name, ADDRINT* size, THREADID threadid );
 // This routine is executed each time malloc is called.
 VOID BeforeMutexUnlock( char* name,ADDRINT* size, THREADID threadid );
 
-VOID RecordMemRead(VOID * ip, VOID * addr,ADDRINT read, THREADID threadid );
+VOID RecordMemRead(REG reg,VOID * ip, VOID * addr,ADDRINT read, THREADID threadid );
 
 VOID RecordMemWrite(VOID * ip, VOID * addr,ADDRINT write, THREADID threadid );
+
+VOID AfterMutexLock(char* name, THREADID threadid );
+
+VOID AfterMutexUnlock(char* name, THREADID threadid );
 
 // a struct for a hash table each thread can see who has last been in region
 typedef struct pin_tracker{

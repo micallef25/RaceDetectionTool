@@ -164,7 +164,7 @@ VOID SetupLocks(IMG img, VOID *v)
         Low = IMG_LowAddress(img); // store lower address bound
         High = IMG_HighAddress(img); // store higher address bound
         Start_addr = IMG_HighAddress(img);
-
+    }
     // search for all pthread lock symbols in the main exxectuable
     rtn = RTN_FindByName(img, "pthread_mutex_lock");
     
@@ -173,9 +173,22 @@ VOID SetupLocks(IMG img, VOID *v)
         RTN_Open(rtn);
         
         RTN_InsertCall(rtn, IPOINT_BEFORE, AFUNPTR(BeforeMutexLock),
-                        IARG_ADDRINT,"lock",
-                      IARG_FUNCARG_ENTRYPOINT_REFERENCE , 0,
-                       IARG_THREAD_ID, IARG_END);
+                        IARG_ADDRINT,"request enter",
+                        IARG_FUNCARG_ENTRYPOINT_REFERENCE , 0,
+                        IARG_THREAD_ID,
+                        IARG_END);
+
+        RTN_Close(rtn);
+    }
+
+    if ( RTN_Valid( rtn ))
+    {
+        RTN_Open(rtn);
+        
+        RTN_InsertCall(rtn, IPOINT_AFTER, AFUNPTR(AfterMutexLock),
+                       IARG_ADDRINT, "entering CS",
+                       IARG_THREAD_ID, 
+                       IARG_END);
 
         RTN_Close(rtn);
     }
@@ -187,9 +200,22 @@ VOID SetupLocks(IMG img, VOID *v)
         RTN_Open(rtn);
         
         RTN_InsertCall(rtn, IPOINT_BEFORE, AFUNPTR(BeforeMutexUnlock),
-             IARG_ADDRINT,"unlock",
-                       IARG_FUNCARG_ENTRYPOINT_REFERENCE , 0,
-                       IARG_THREAD_ID, IARG_END);
+                        IARG_ADDRINT, "request exit",
+                        IARG_FUNCARG_ENTRYPOINT_REFERENCE , 0,
+                        IARG_THREAD_ID, 
+                        IARG_END);
+
+        RTN_Close(rtn);
+    }
+
+    if ( RTN_Valid( rtn ))
+    {
+        RTN_Open(rtn);
+        
+        RTN_InsertCall(rtn, IPOINT_AFTER, AFUNPTR(AfterMutexUnlock),
+                    IARG_ADDRINT, "exiting CS",
+                    IARG_THREAD_ID,
+                    IARG_END);
 
         RTN_Close(rtn);
     }
@@ -219,7 +245,6 @@ VOID SetupLocks(IMG img, VOID *v)
 
         RTN_Close(rtn);
     }
-}
 
 }
 
@@ -251,12 +276,14 @@ VOID Instruction(INS ins, VOID *v)
     if (INS_Opcode(ins) == XED_ICLASS_MOV &&
         INS_IsMemoryRead(ins) &&
         INS_OperandIsReg(ins, 0) &&
-        INS_OperandIsMemory(ins, 1))
+        INS_OperandIsMemory(ins, 1) &&
+        !INS_IsStackRead(ins))
         {
             INS_InsertPredicatedCall(
                 ins, IPOINT_BEFORE, (AFUNPTR)RecordMemRead,
+                IARG_UINT32,
+                REG(INS_OperandReg(ins, 0)),
                 IARG_INST_PTR,
-
                 IARG_MEMORYOP_EA, memOp,
                 IARG_MEMORYREAD_EA,
                 IARG_THREAD_ID,
@@ -270,7 +297,6 @@ VOID Instruction(INS ins, VOID *v)
         {
             INS_InsertPredicatedCall(
                 ins, IPOINT_BEFORE, (AFUNPTR)RecordMemWrite,
-                // REG(INS_OperandReg(ins, 0)),
                 IARG_INST_PTR,
                 IARG_MEMORYOP_EA, memOp,
                 IARG_MEMORYWRITE_EA,
