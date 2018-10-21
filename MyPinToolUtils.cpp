@@ -4,6 +4,10 @@
 
 extern std::ostream *out;
 extern PIN_LOCK lock;
+extern UINT64 Low;
+extern UINT64 High;
+extern UINT64 Start_addr;
+// extern RTN_COUNT * RtnList; // LL 
 
 // This routine is executed each time malloc is called.
 VOID BeforeSemWait( ADDRINT size, THREADID threadid )
@@ -22,21 +26,61 @@ VOID BeforeSemPost( ADDRINT size, THREADID threadid )
 }
 
 // This routine is executed each time malloc is called.
-VOID BeforeMutexLock( ADDRINT* size, THREADID threadid )
+VOID BeforeMutexLock(char* name, ADDRINT* size, THREADID threadid )
 {
     PIN_GetLock(&lock, threadid+1);
-    *out << "thread " << threadid << " entered mutex lock[" << (pthread_mutex_t*)size << "]" << endl;
+    *out << "thread " << threadid << " " << name << "[" << (pthread_mutex_t*)size << "]" << endl;
     PIN_ReleaseLock(&lock);
 }
 
 // This routine is executed each time malloc is called.
-VOID BeforeMutexUnlock( ADDRINT* size, THREADID threadid )
+VOID BeforeMutexUnlock(char* name,ADDRINT* size, THREADID threadid )
 {
     PIN_GetLock(&lock, threadid+1);
-    *out << "thread " << threadid << " entered mutex unlock[" << (pthread_mutex_t*)size << "]" << endl;
+    *out << "thread " << threadid << " " << name << "[" << (pthread_mutex_t*)size << "]" << endl;
     PIN_ReleaseLock(&lock);
 }
 
+// Print a memory read record
+VOID RecordMemRead(VOID * ip, VOID * addr,ADDRINT read, THREADID threadid )
+{
+    // fprintf(trace,"%p: R %p\n", ip, addr);
+    // pin_tracker read_track;
+
+    PIN_GetLock(&lock, threadid+1);
+    if(threadid != 0 && (ADDRINT)ip < High && read > Start_addr){
+
+
+        *out << "thread ["<< threadid <<"] " <<"R " << addr << " ip: " << ip <<" read: " << read << endl;
+    }
+    PIN_ReleaseLock(&lock);
+}
+
+// Print a memory write record
+VOID RecordMemWrite(VOID * ip, VOID * addr,ADDRINT write, THREADID threadid )
+{
+    
+    PIN_GetLock(&lock, threadid+1);
+    if(threadid != 0 && (ADDRINT)ip < High && write > Start_addr){
+
+        // *out << "Emulate loading from addr " << addr << " to " << REG_StringShort(reg) << endl;
+        *out << "thread ["<< threadid <<"] "<< "W " << (ADDRINT)addr  <<  " ip: " << ip  << " write " << write << endl;
+    }
+    PIN_ReleaseLock(&lock);
+}
+
+
+// read_map(ADDRINT ip)
+// {
+
+// }
+
+// store_map(ADDRINT ip, THREADID tid)
+// {
+
+// }
+
+// char ll_conains()
 
 // branch prediction stuff
 // /*
