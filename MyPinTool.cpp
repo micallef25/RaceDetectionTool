@@ -107,49 +107,49 @@ VOID ImageUnload(IMG img, VOID *v)
     *out << "Unloading " << IMG_Name(img) << endl;
 }
 
-const char * StripPath(const char * path)
-{
-    const char * file = strrchr(path,'/');
-    if (file)
-        return file+1;
-    else
-        return path;
-}
+// const char * StripPath(const char * path)
+// {
+//     const char * file = strrchr(path,'/');
+//     if (file)
+//         return file+1;
+//     else
+//         return path;
+// }
 
-// Pin calls this function every time a new rtn is executed
-VOID Routine(RTN rtn, VOID *v)
-{
+// // Pin calls this function every time a new rtn is executed
+// VOID Routine(RTN rtn, VOID *v)
+// {
     
-    // Allocate a counter for this routine
-    RTN_COUNT * rc = new RTN_COUNT;
+//     // Allocate a counter for this routine
+//     RTN_COUNT * rc = new RTN_COUNT;
 
-    // The RTN goes away when the image is unloaded, so save it now
-    // because we need it in the fini
-    rc->_name = RTN_Name(rtn);
-    rc->_image = StripPath(IMG_Name(SEC_Img(RTN_Sec(rtn))).c_str());
-    rc->_address = RTN_Address(rtn);
-    rc->_icount = 0;
-    rc->_rtnCount = 0;
+//     // The RTN goes away when the image is unloaded, so save it now
+//     // because we need it in the fini
+//     rc->_name = RTN_Name(rtn);
+//     rc->_image = StripPath(IMG_Name(SEC_Img(RTN_Sec(rtn))).c_str());
+//     rc->_address = RTN_Address(rtn);
+//     rc->_icount = 0;
+//     rc->_rtnCount = 0;
 
-    // Add to list of routines
-    rc->_next = RtnList;
-    RtnList = rc;
+//     // Add to list of routines
+//     rc->_next = RtnList;
+//     RtnList = rc;
             
-    RTN_Open(rtn);
+//     RTN_Open(rtn);
             
-    // Insert a call at the entry point of a routine to increment the call count
-    //RTN_InsertCall(rtn, IPOINT_BEFORE, (AFUNPTR)docount, IARG_PTR, &(rc->_rtnCount), IARG_END);
+//     // Insert a call at the entry point of a routine to increment the call count
+//     //RTN_InsertCall(rtn, IPOINT_BEFORE, (AFUNPTR)docount, IARG_PTR, &(rc->_rtnCount), IARG_END);
     
-    // For each instruction of the routine
-    for (INS ins = RTN_InsHead(rtn); INS_Valid(ins); ins = INS_Next(ins))
-    {
-        // Insert a call to docount to increment the instruction counter for this rtn
-        //INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)docount, IARG_PTR, &(rc->_icount), IARG_END);
-    }
+//     // For each instruction of the routine
+//     for (INS ins = RTN_InsHead(rtn); INS_Valid(ins); ins = INS_Next(ins))
+//     {
+//         // Insert a call to docount to increment the instruction counter for this rtn
+//         //INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)docount, IARG_PTR, &(rc->_icount), IARG_END);
+//     }
 
     
-    RTN_Close(rtn);
-}
+//     RTN_Close(rtn);
+// }
 
 // This routine is executed for each image.
 VOID SetupLocks(IMG img, VOID *v)
@@ -158,7 +158,8 @@ VOID SetupLocks(IMG img, VOID *v)
     *out << "Loading " << IMG_Name(img) << ", Image id = " << IMG_Id(img) << endl;
 
     // if the img is the main exectuable and not a linux lib then instrument and get the address bounds
-    if(IMG_IsMainExecutable(img)){
+    if(IMG_IsMainExecutable(img))
+    {
         *out << "Loading Main exe " << IMG_Name(img) << ", Image id = " << IMG_Id(img) << endl;
         *out << "Low " << IMG_LowAddress(img) << ", High = " << IMG_HighAddress(img) << " start " << IMG_StartAddress(img) << endl;
         Low = IMG_LowAddress(img); // store lower address bound
@@ -394,21 +395,21 @@ VOID Fini(INT32 code, VOID *v)
         delete tdata;
     }
     *out <<  "===============================================" << endl;
-    *out << setw(23) << "Procedure" << " "
-            << setw(15) << "Image" << " "
-          << setw(18) << "Address" << " "
-          << setw(12) << "Calls" << " "
-          << setw(12) << "Instructions" << endl;
+    // *out << setw(23) << "Procedure" << " "
+    //         << setw(15) << "Image" << " "
+    //       << setw(18) << "Address" << " "
+    //       << setw(12) << "Calls" << " "
+    //       << setw(12) << "Instructions" << endl;
 
-    for (RTN_COUNT * rc = RtnList; rc; rc = rc->_next)
-    {
-     //   if (rc->_icount > 0)
-            *out << setw(23) << rc->_name << " "
-                  << setw(15) << rc->_image << " "
-                  << setw(18) << hex << rc->_address << dec <<" "
-                  << setw(12) << rc->_rtnCount << " "
-                  << setw(12) << rc->_icount << endl;
-    }
+    // for (RTN_COUNT * rc = RtnList; rc; rc = rc->_next)
+    // {
+    //  //   if (rc->_icount > 0)
+    //         *out << setw(23) << rc->_name << " "
+    //               << setw(15) << rc->_image << " "
+    //               << setw(18) << hex << rc->_address << dec <<" "
+    //               << setw(12) << rc->_rtnCount << " "
+    //               << setw(12) << rc->_icount << endl;
+    // }
 
 
 }
@@ -460,7 +461,7 @@ int main(int argc, char *argv[])
         PIN_AddThreadStartFunction(ThreadStart, NULL);
 
         // Register Routine to be called to instrument rtn
-        RTN_AddInstrumentFunction(Routine, 0);
+        // RTN_AddInstrumentFunction(Routine, 0);
 
         // Register function to be called when the application exits
         PIN_AddFiniFunction(Fini, NULL);

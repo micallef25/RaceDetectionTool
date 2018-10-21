@@ -9,7 +9,7 @@ extern UINT64 High;
 extern UINT64 Start_addr;
 // extern RTN_COUNT * RtnList; // LL 
 
-// This routine is executed each time malloc is called.
+// This routine is executed each time sem wait is called.
 VOID BeforeSemWait( ADDRINT size, THREADID threadid )
 {
     PIN_GetLock(&lock, threadid+1);
@@ -17,7 +17,7 @@ VOID BeforeSemWait( ADDRINT size, THREADID threadid )
     PIN_ReleaseLock(&lock);
 }
 
-// This routine is executed each time malloc is called.
+// This routine is executed each time sem post is called.
 VOID BeforeSemPost( ADDRINT size, THREADID threadid )
 {
     PIN_GetLock(&lock, threadid+1);
@@ -25,7 +25,7 @@ VOID BeforeSemPost( ADDRINT size, THREADID threadid )
     PIN_ReleaseLock(&lock);
 }
 
-// This routine is executed each time malloc is called.
+// This routine is executed each time mutex lock is called.
 VOID AfterMutexLock(char* name, THREADID threadid )
 {
     PIN_GetLock(&lock, threadid+1);
@@ -33,7 +33,7 @@ VOID AfterMutexLock(char* name, THREADID threadid )
     PIN_ReleaseLock(&lock);
 }
 
-// This routine is executed each time malloc is called.
+// This routine is executed each time mutex lock is called.
 VOID AfterMutexUnlock(char* name, THREADID threadid )
 {
     PIN_GetLock(&lock, threadid+1);
@@ -41,7 +41,7 @@ VOID AfterMutexUnlock(char* name, THREADID threadid )
     PIN_ReleaseLock(&lock);
 }
 
-// This routine is executed each time malloc is called.
+// This routine is executed each time mutex lock is called.
 VOID BeforeMutexLock(char* name, ADDRINT* lock_name, THREADID threadid )
 {
     PIN_GetLock(&lock, threadid+1);
@@ -49,7 +49,7 @@ VOID BeforeMutexLock(char* name, ADDRINT* lock_name, THREADID threadid )
     PIN_ReleaseLock(&lock);
 }
 
-// This routine is executed each time malloc is called.
+// This routine is executed each time mutex unlock is called.
 VOID BeforeMutexUnlock(char* name,ADDRINT* lock_name, THREADID threadid )
 {
     PIN_GetLock(&lock, threadid+1);
@@ -64,9 +64,8 @@ VOID RecordMemRead(REG reg, VOID * ip, VOID * addr,ADDRINT read, THREADID thread
     // pin_tracker read_track;
 
     PIN_GetLock(&lock, threadid+1);
-    if(threadid != 0 && (ADDRINT)ip < High && read > Start_addr)
+    if((ADDRINT)ip < High && read > Start_addr)
     {
-        *out << "Emulate loading from addr " << addr << " to " << REG_StringShort(reg) << endl;
         *out << "thread ["<< threadid <<"] " <<"R " << addr << " ip: " << ip <<" read: " << read << endl;
     }
     PIN_ReleaseLock(&lock);
@@ -77,9 +76,8 @@ VOID RecordMemWrite(VOID * ip, VOID * addr,ADDRINT write, THREADID threadid )
 {
     
     PIN_GetLock(&lock, threadid+1);
-    if(threadid != 0 && (ADDRINT)ip < High && write > Start_addr){
-
-        // *out << "Emulate loading from addr " << addr << " to " << REG_StringShort(reg) << endl;
+    if((ADDRINT)ip < High && write > Start_addr)
+    {
         *out << "thread ["<< threadid <<"] "<< "W " << (ADDRINT)addr  <<  " ip: " << ip  << " write " << write << endl;
     }
     PIN_ReleaseLock(&lock);
