@@ -3,6 +3,11 @@
 #include "pin.H"
 #include <stdbool.h>
 #include <stdint.h>
+#include <pthread.h>
+#include <map>
+
+#define READ 1
+#define WRITE 0
 
 VOID BeforeSemWait( ADDRINT size, THREADID threadid );
 
@@ -51,6 +56,8 @@ VOID AfterMutexLock(char* name, THREADID threadid );
  * @param[in]   threadId        unique thread id assigned by pin
  */
 VOID AfterMutexUnlock(char* name, THREADID threadid );
+
+VOID read_map(ADDRINT addr, THREADID threadid, bool read);
 
 // a struct for a hash table each thread can see who has last been in region
 typedef struct pin_tracker{

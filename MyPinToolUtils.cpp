@@ -7,6 +7,9 @@ extern PIN_LOCK lock;
 extern UINT64 Low;
 extern UINT64 High;
 extern UINT64 Start_addr;
+
+std::map<ADDRINT, pin_tracker*>race_map;
+
 // extern RTN_COUNT * RtnList; // LL 
 
 // This routine is executed each time sem wait is called.
@@ -61,12 +64,13 @@ VOID BeforeMutexUnlock(char* name,ADDRINT* lock_name, THREADID threadid )
 VOID RecordMemRead(REG reg, VOID * ip, VOID * addr, THREADID threadid )
 {
     // fprintf(trace,"%p: R %p\n", ip, addr);
-    // pin_tracker read_track;
+    // pin_tracker* read_track;
 
     PIN_GetLock(&lock, threadid+1);
     if((ADDRINT)ip < High && (ADDRINT)addr > Start_addr)
     {
-        *out << "thread ["<< threadid <<"] " <<"R " << addr << " ip: " << ip << endl;
+        read_map((ADDRINT)addr, threadid,WRITE);
+        *out << "thread ["<< threadid <<"] " <<"R " << (ADDRINT)addr << " ip: " << ip << endl;
     }
     PIN_ReleaseLock(&lock);
 }
@@ -74,20 +78,43 @@ VOID RecordMemRead(REG reg, VOID * ip, VOID * addr, THREADID threadid )
 // Print a memory write record
 VOID RecordMemWrite(VOID * ip, VOID * addr, THREADID threadid )
 {
-    
     PIN_GetLock(&lock, threadid+1);
     if((ADDRINT)ip < High && (ADDRINT)addr > Start_addr)
     {
-        *out << "thread ["<< threadid <<"] "<< "W " << addr  <<  " ip: " << ip  << endl;
+        *out << "thread ["<< threadid <<"] "<< "W " << (ADDRINT)addr  <<  " ip: " << ip  << endl;
+        read_map((ADDRINT)addr, threadid,READ);
     }
     PIN_ReleaseLock(&lock);
 }
 
 
-// read_map(ADDRINT ip)
-// {
+VOID read_map(ADDRINT addr, THREADID threadid, bool read)
+{
 
-// }
+    std::map<ADDRINT,pin_tracker*>::const_iterator got = race_map.find (addr);
+    pin_tracker* write_track = NULL;
+
+    if ( got == race_map.end() ){
+        *out << "address not found: " << addr << endl;
+        write_track = new pin_tracker;
+        write_track->threadid = threadid;
+        write_track->read = false;
+        race_map[(ADDRINT)addr] = write_track;
+    }
+    else{
+        *out << "thread [" << got->second->threadid << "] ";
+        if(got->second->read)
+            *out << "is reading: " << got->first << endl;
+        else
+            *out << "is writing: " << got->first << endl;
+
+        got->second->threadid = threadid;
+        got->second->read = read;
+
+    }
+
+
+}
 
 // store_map(ADDRINT ip, THREADID tid)
 // {
