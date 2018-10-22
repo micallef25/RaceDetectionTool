@@ -1,0 +1,238 @@
+Loading /home/ivyleague-sloth/Documents/Pin/race_tests/race, Image id = 1
+Loading Main exe /home/ivyleague-sloth/Documents/Pin/race_tests/race, Image id = 1
+Low 4194304, High = 4197371 start 139713030615040
+Loading /lib64/ld-linux-x86-64.so.2, Image id = 2
+Loading [vdso], Image id = 3
+Loading /lib/x86_64-linux-gnu/libpthread.so.0, Image id = 4
+Loading /lib/x86_64-linux-gnu/libc.so.6, Image id = 5
+address not found: 6295544
+thread [0] R 6295544 ip: 0x00000000004006cc
+address not found: 139712702146344
+thread [0] R 139712702146344 ip: 0x00000000004008f7
+thread [0] request enter[0x00007f1176d72510]
+thread [0] entering CS
+thread [0] request exit[0x00007f1176d72510]
+thread [0] exiting CS
+thread [1] request enter[0x00007f1163d9b510]
+thread [1] entering CS
+address not found: 6295684
+thread [1] R 6295684 ip: 0x00000000004008b2
+thread [1] W 6295684 ip: 0x00000000004008bb
+thread [1] is writing: 6295684
+thread [1] is reading: 6295684
+thread [1] R 6295684 ip: 0x00000000004008c1
+thread [2] request enter[0x00007f1164ead510]
+thread [1] request exit[0x00007f1163d9b510]
+thread [1] exiting CS
+thread [1] request enter[0x00007f1163d9b510]
+thread [1] entering CS
+thread [1] is writing: 6295684
+thread [1] R 6295684 ip: 0x00000000004008b2
+thread [1] W 6295684 ip: 0x00000000004008bb
+thread [1] is writing: 6295684
+thread [1] is reading: 6295684
+thread [1] R 6295684 ip: 0x00000000004008c1
+thread [1] request exit[0x00007f1163d9b510]
+thread [1] exiting CS
+thread [1] request enter[0x00007f1163d9b510]
+thread [1] entering CS
+thread [1] is writing: 6295684
+thread [1] R 6295684 ip: 0x00000000004008b2
+thread [1] W 6295684 ip: 0x00000000004008bb
+thread [1] is writing: 6295684
+thread [1] is reading: 6295684
+thread [1] R 6295684 ip: 0x00000000004008c1
+thread [1] request exit[0x00007f1163d9b510]
+thread [1] exiting CS
+thread [1] request enter[0x00007f1163d9b510]
+thread [2] entering CS
+thread [1] is writing: 6295684
+thread [2] R 6295684 ip: 0x00000000004008b2
+thread [2] W 6295684 ip: 0x00000000004008bb
+thread [2] is writing: 6295684
+thread [2] is reading: 6295684
+thread [2] R 6295684 ip: 0x00000000004008c1
+thread [2] request exit[0x00007f1164ead510]
+thread [2] exiting CS
+thread [2] request enter[0x00007f1164ead510]
+thread [2] entering CS
+thread [2] is writing: 6295684
+thread [2] R 6295684 ip: 0x00000000004008b2
+thread [2] W 6295684 ip: 0x00000000004008bb
+thread [2] is writing: 6295684
+thread [2] is reading: 6295684
+thread [2] R 6295684 ip: 0x00000000004008c1
+thread [2] request exit[0x00007f1164ead510]
+thread [2] exiting CS
+thread [2] request enter[0x00007f1164ead510]
+thread [2] entering CS
+thread [2] is writing: 6295684
+thread [2] R 6295684 ip: 0x00000000004008b2
+thread [2] W 6295684 ip: 0x00000000004008bb
+thread [2] is writing: 6295684
+thread [2] is reading: 6295684
+thread [2] R 6295684 ip: 0x00000000004008c1
+thread [2] request exit[0x00007f1164ead510]
+thread [2] exiting CS
+thread [1] entering CS
+thread [2] is writing: 6295684
+thread [1] R 6295684 ip: 0x00000000004008b2
+thread [1] W 6295684 ip: 0x00000000004008bb
+thread [1] is writing: 6295684
+thread [1] is reading: 6295684
+thread [1] R 6295684 ip: 0x00000000004008c1
+thread [1] request exit[0x00007f1163d9b510]
+thread [1] exiting CS
+thread [1] request enter[0x00007f1163d9b510]
+thread [1] entering CS
+thread [1] is writing: 6295684
+thread [1] R 6295684 ip: 0x00000000004008b2
+thread [1] W 6295684 ip: 0x00000000004008bb
+thread [1] is writing: 6295684
+thread [1] is reading: 6295684
+thread [1] R 6295684 ip: 0x00000000004008c1
+thread [1] request exit[0x00007f1163d9b510]
+thread [1] exiting CS
+thread [2] request enter[0x00007f1164ead510]
+thread [2] entering CS
+thread [1] is writing: 6295684
+thread [2] R 6295684 ip: 0x00000000004008b2
+thread [2] W 6295684 ip: 0x00000000004008bb
+thread [2] is writing: 6295684
+thread [2] is reading: 6295684
+thread [2] R 6295684 ip: 0x00000000004008c1
+thread [2] request exit[0x00007f1164ead510]
+thread [1] request enter[0x00007f1163d9b510]
+thread [1] entering CS
+thread [2] exiting CS
+thread [2] is writing: 6295684
+thread [1] R 6295684 ip: 0x00000000004008b2
+thread [2] request enter[0x00007f1164ead510]
+thread [1] W 6295684 ip: 0x00000000004008bb
+thread [1] is writing: 6295684
+thread [1] is reading: 6295684
+thread [1] R 6295684 ip: 0x00000000004008c1
+thread [1] request exit[0x00007f1163d9b510]
+thread [1] exiting CS
+thread [1] request enter[0x00007f1163d9b510]
+thread [1] entering CS
+thread [1] is writing: 6295684
+thread [1] R 6295684 ip: 0x00000000004008b2
+thread [1] W 6295684 ip: 0x00000000004008bb
+thread [1] is writing: 6295684
+thread [1] is reading: 6295684
+thread [1] R 6295684 ip: 0x00000000004008c1
+thread [1] request exit[0x00007f1163d9b510]
+thread [2] entering CS
+thread [1] is writing: 6295684
+thread [2] R 6295684 ip: 0x00000000004008b2
+thread [1] exiting CS
+thread [2] W 6295684 ip: 0x00000000004008bb
+thread [2] is writing: 6295684
+thread [2] is reading: 6295684
+thread [2] R 6295684 ip: 0x00000000004008c1
+thread [1] request enter[0x00007f1163d9b510]
+thread [2] request exit[0x00007f1164ead510]
+thread [2] exiting CS
+thread [2] request enter[0x00007f1164ead510]
+thread [2] entering CS
+thread [2] is writing: 6295684
+thread [2] R 6295684 ip: 0x00000000004008b2
+thread [2] W 6295684 ip: 0x00000000004008bb
+thread [2] is writing: 6295684
+thread [2] is reading: 6295684
+thread [2] R 6295684 ip: 0x00000000004008c1
+thread [2] request exit[0x00007f1164ead510]
+thread [2] exiting CS
+thread [2] request enter[0x00007f1164ead510]
+thread [1] entering CS
+thread [2] is writing: 6295684
+thread [1] R 6295684 ip: 0x00000000004008b2
+thread [1] W 6295684 ip: 0x00000000004008bb
+thread [1] is writing: 6295684
+thread [1] is reading: 6295684
+thread [1] R 6295684 ip: 0x00000000004008c1
+thread [1] request exit[0x00007f1163d9b510]
+thread [1] exiting CS
+thread [1] request enter[0x00007f1163d9b510]
+thread [2] entering CS
+thread [1] is writing: 6295684
+thread [2] R 6295684 ip: 0x00000000004008b2
+thread [2] W 6295684 ip: 0x00000000004008bb
+thread [2] is writing: 6295684
+thread [2] is reading: 6295684
+thread [2] R 6295684 ip: 0x00000000004008c1
+thread [2] request exit[0x00007f1164ead510]
+thread [2] exiting CS
+thread [2] request enter[0x00007f1164ead510]
+thread [1] entering CS
+thread [2] is writing: 6295684
+thread [1] R 6295684 ip: 0x00000000004008b2
+thread [1] W 6295684 ip: 0x00000000004008bb
+thread [1] is writing: 6295684
+thread [1] is reading: 6295684
+thread [1] R 6295684 ip: 0x00000000004008c1
+thread [1] request exit[0x00007f1163d9b510]
+thread [2] entering CS
+thread [1] exiting CS
+thread [1] is writing: 6295684
+thread [2] R 6295684 ip: 0x00000000004008b2
+thread [2] W 6295684 ip: 0x00000000004008bb
+thread [2] is writing: 6295684
+thread [1] request enter[0x00007f1163d9b510]
+thread [2] is reading: 6295684
+thread [2] R 6295684 ip: 0x00000000004008c1
+thread [2] request exit[0x00007f1164ead510]
+thread [2] exiting CS
+thread [2] request enter[0x00007f1164ead510]
+thread [1] entering CS
+thread [2] is writing: 6295684
+thread [1] R 6295684 ip: 0x00000000004008b2
+thread [1] W 6295684 ip: 0x00000000004008bb
+thread [1] is writing: 6295684
+thread [1] is reading: 6295684
+thread [1] R 6295684 ip: 0x00000000004008c1
+thread [1] request exit[0x00007f1163d9b510]
+thread [2] entering CS
+thread [1] exiting CS
+thread [1] is writing: 6295684
+thread [2] R 6295684 ip: 0x00000000004008b2
+thread [2] W 6295684 ip: 0x00000000004008bb
+thread [2] is writing: 6295684
+thread [2] is reading: 6295684
+thread [2] R 6295684 ip: 0x00000000004008c1
+thread [2] request exit[0x00007f1164ead510]
+thread [2] exiting CS
+thread [2] request enter[0x00007f1164ead510]
+thread [2] entering CS
+thread [2] is writing: 6295684
+thread [2] R 6295684 ip: 0x00000000004008b2
+thread [2] W 6295684 ip: 0x00000000004008bb
+thread [2] is writing: 6295684
+thread [2] is reading: 6295684
+thread [2] R 6295684 ip: 0x00000000004008c1
+thread [2] request exit[0x00007f1164ead510]
+thread [2] exiting CS
+Count[1] = 14919
+Count[2] = 9052
+thread [0] request enter[0x00007f1176d72510]
+thread [0] entering CS
+thread [0] request exit[0x00007f1176d72510]
+thread [0] exiting CS
+thread [0] W 6295680 ip: 0x0000000000400872
+address not found: 6295680
+Count[0] = 190441
+Unloading /home/ivyleague-sloth/Documents/Pin/race_tests/race
+Unloading /lib64/ld-linux-x86-64.so.2
+Unloading [vdso]
+Unloading /lib/x86_64-linux-gnu/libpthread.so.0
+Unloading /lib/x86_64-linux-gnu/libc.so.6
+===============================================
+MyPinTool analysis results: 
+Number of instructions: 0
+Number of basic blocks: 0
+Number of threads: 3
+Count[0]= 190441
+Count[1]= 14919
+Count[2]= 9052
+===============================================

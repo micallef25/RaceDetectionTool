@@ -19,6 +19,7 @@ UINT64 Low = 0;
 UINT64 High = 0;
 UINT64 Start_addr = 0;
 
+#define RACE_DEBUG
 
 std::ostream * out = &cerr;
 PIN_LOCK lock;
@@ -383,6 +384,8 @@ VOID ThreadFini(THREADID threadIndex, const CONTEXT *ctxt, INT32 code, VOID *v)
  */
 VOID Fini(INT32 code, VOID *v)
 {
+    
+    clean_map();
     *out <<  "===============================================" << endl;
     *out <<  "MyPinTool analysis results: " << endl;
     *out <<  "Number of instructions: " << insCount  << endl;
@@ -448,8 +451,10 @@ int main(int argc, char *argv[])
 
     if (KnobCount)
     {
+        #ifdef RACE_DEBUG
         // Register ImageLoad to be called when each image is loaded.
         IMG_AddInstrumentFunction(SetupLocks, 0);
+        #endif
 
         // Register ImageUnload to be called when an image is unloaded
         IMG_AddUnloadFunction(ImageUnload, 0);

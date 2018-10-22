@@ -116,6 +116,14 @@ VOID read_map(ADDRINT addr, THREADID threadid, bool read)
 
 }
 
+VOID clean_map()
+{
+      // show content:
+  for (std::map<ADDRINT,pin_tracker*>::iterator it=race_map.begin(); it!=race_map.end(); ++it)
+    delete it->second;
+
+}
+
 // store_map(ADDRINT ip, THREADID tid)
 // {
 

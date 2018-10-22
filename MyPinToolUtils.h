@@ -59,6 +59,8 @@ VOID AfterMutexUnlock(char* name, THREADID threadid );
 
 VOID read_map(ADDRINT addr, THREADID threadid, bool read);
 
+void clean_map();
+
 // a struct for a hash table each thread can see who has last been in region
 typedef struct pin_tracker{
 
