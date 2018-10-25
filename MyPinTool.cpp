@@ -5,8 +5,8 @@
  */
 #include "pin.H"
 #include "MyPinToolUtils.h"
-#include <iostream>
-#include <fstream>
+
+
 
 /* ================================================================== */
 // Global variables 
@@ -18,6 +18,7 @@ UINT64 threadCount = 0;     //total number of threads, including main thread
 UINT64 Low = 0;
 UINT64 High = 0;
 UINT64 Start_addr = 0;
+uint8_t CS[100];
 
 #define RACE_DEBUG
 
@@ -97,8 +98,10 @@ thread_data_t* get_tls(THREADID threadid)
 // This function is called before every block
 VOID PIN_FAST_ANALYSIS_CALL docount(UINT32 c, THREADID threadid)
 {
+    PIN_GetLock(&lock, threadid+1);
     thread_data_t* tdata = get_tls(threadid);
     tdata->_count += c;
+    PIN_ReleaseLock(&lock);
 }
 
 // Pin calls this function every time a new img is unloaded
@@ -433,9 +436,11 @@ int main(int argc, char *argv[])
     if( PIN_Init(argc,argv) )
     {
         return Usage();
-    }
+    } 
 
     PIN_InitSymbols();
+
+    memset(&CS[0],UNSAFE,100);
 
         // Obtain  a key for TLS storage.
     tls_key = PIN_CreateThreadDataKey(NULL);

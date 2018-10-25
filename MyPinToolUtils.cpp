@@ -9,8 +9,14 @@ extern UINT64 High;
 extern UINT64 Start_addr;
 
 std::map<ADDRINT, pin_tracker*>race_map;
+extern uint8_t CS[100];
 
-// extern RTN_COUNT * RtnList; // LL 
+/*
+Check Thread Id if same mark as safe.
+Case R -> R  -> Safe?
+Case R -> W  -> Unsafe?
+Case W -> R  -> Unsafe?
+*/
 
 // This routine is executed each time sem wait is called.
 VOID BeforeSemWait( ADDRINT size, THREADID threadid )
@@ -33,6 +39,7 @@ VOID AfterMutexLock(char* name, THREADID threadid )
 {
     PIN_GetLock(&lock, threadid+1);
     *out << "thread [" <<threadid << "] " << name << endl;
+    CS[threadid] = SAFE;
     PIN_ReleaseLock(&lock);
 }
 
@@ -41,6 +48,7 @@ VOID AfterMutexUnlock(char* name, THREADID threadid )
 {
     PIN_GetLock(&lock, threadid+1);
     *out << "thread [" <<threadid << "] " << name << endl;
+    CS[threadid] = UNSAFE;
     PIN_ReleaseLock(&lock);
 }
 
@@ -69,7 +77,7 @@ VOID RecordMemRead(REG reg, VOID * ip, VOID * addr, THREADID threadid )
     PIN_GetLock(&lock, threadid+1);
     if((ADDRINT)ip < High && (ADDRINT)addr > Start_addr)
     {
-        read_map((ADDRINT)addr, threadid,WRITE);
+        read_map((ADDRINT)addr, threadid,READ);
         *out << "thread ["<< threadid <<"] " <<"R " << (ADDRINT)addr << " ip: " << ip << endl;
     }
     PIN_ReleaseLock(&lock);
@@ -82,9 +90,40 @@ VOID RecordMemWrite(VOID * ip, VOID * addr, THREADID threadid )
     if((ADDRINT)ip < High && (ADDRINT)addr > Start_addr)
     {
         *out << "thread ["<< threadid <<"] "<< "W " << (ADDRINT)addr  <<  " ip: " << ip  << endl;
-        read_map((ADDRINT)addr, threadid,READ);
+        read_map((ADDRINT)addr, threadid,WRITE);
     }
     PIN_ReleaseLock(&lock);
+}
+
+// this function will analyze whether or not the memory region is safe
+// read = false for a write true for a read
+char analyze_map(pin_tracker* mem_region, bool read)
+{
+    // *out << "record " << (mem_region->read ? " Read" : "Write") <<" new " << (read ? " Read" : "Write") <<  endl;
+
+    // if this a read after read it is safe... for now... 
+    if(mem_region->read == READ && read == READ){
+        *out << "READ after READ" << endl;
+        return SAFE;
+    }
+    // we have a write after read  condition possibly unsafe!
+    else if(mem_region->read == READ && read == WRITE){
+        *out << "WRITE after READ " << endl;
+        return UNSAFE;
+    }
+
+    // we have a write after write case
+    else if(mem_region->read == WRITE && read == WRITE){
+        *out << "WRITE after WRITE " << endl;
+        return UNSAFE;
+    }
+
+    // we have a read after write case
+    else if(mem_region->read == WRITE && read == READ){
+        *out << "READ after WRITE " << endl;
+         return UNSAFE;
+    }
+    return 0;
 }
 
 
@@ -93,12 +132,14 @@ VOID read_map(ADDRINT addr, THREADID threadid, bool read)
 
     std::map<ADDRINT,pin_tracker*>::const_iterator got = race_map.find (addr);
     pin_tracker* write_track = NULL;
+    char safe=UNSAFE;
 
     if ( got == race_map.end() ){
         *out << "address not found: " << addr << endl;
         write_track = new pin_tracker;
         write_track->threadid = threadid;
         write_track->read = false;
+        write_track->shared_mem = false; 
         race_map[(ADDRINT)addr] = write_track;
     }
     else{
@@ -108,9 +149,26 @@ VOID read_map(ADDRINT addr, THREADID threadid, bool read)
         else
             *out << "is writing: " << got->first << endl;
 
+        // *out << "shared access " << (got->second->shared_mem ? " Yes" : "No") << endl;
+        // if we have shared memory we need to check for a data race
+        if(got->second->shared_mem == true)
+            safe = analyze_map(got->second,read);
+
+        // if this is the first instance of a different thread accessing the memory set to shared and check for a race
+        else if(got->second->threadid != threadid)
+        {
+            got->second->shared_mem = true;
+            safe = analyze_map(got->second,read);
+            *out << "SHARED " << endl;
+        }
+        else
+            safe = SAFE; 
+
+        if(CS[threadid] == UNSAFE && safe == UNSAFE)
+            *out << "RACE CONDITION DETECTED ERROR ERROR WTF!!!!!"  << endl;
+
         got->second->threadid = threadid;
         got->second->read = read;
-
     }
 
 

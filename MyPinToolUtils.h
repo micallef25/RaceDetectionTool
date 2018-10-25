@@ -4,10 +4,15 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <pthread.h>
+#include <stdlib.h>
+#include <iostream>
+#include <fstream>
 #include <map>
 
 #define READ 1
 #define WRITE 0
+#define SAFE 1
+#define UNSAFE 0 
 
 VOID BeforeSemWait( ADDRINT size, THREADID threadid );
 
@@ -65,7 +70,8 @@ void clean_map();
 typedef struct pin_tracker{
 
 	THREADID threadid; // who has last seen
-	bool read; // last action of read or write 
+	bool read; // last action of read or write
+	bool shared_mem; // false for local true for shared amongst threads
 
 }pin_tracker;
 
