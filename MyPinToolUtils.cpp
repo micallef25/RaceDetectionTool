@@ -109,7 +109,7 @@ char analyze_map(pin_tracker* mem_region, bool read)
     // we have a write after read  condition possibly unsafe!
     else if(mem_region->read == READ && read == WRITE){
         *out << "WRITE after READ " << endl;
-        return UNSAFE;
+        return SAFE;
     }
 
     // we have a write after write case
