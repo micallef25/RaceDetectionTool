@@ -3,15 +3,17 @@ CC = gcc
 # compiler flags:
 #  -g    adds debugging information to the executable file
 #  -Wall turns on most, but not all, compiler warnings
-CFLAGS  = -g -Wall
+#  -v Verbose
+CFLAGS  = -g -Wall -v
 # -pthread support for threads
-LDFLAGS = -lpthread
+LDFLAGS = -lpthread -Wl,-Map=$@.map
 # the build target executable:
-TARGET = saferace
+TARGET = race
 
 all: $(TARGET)
 
 $(TARGET): $(TARGET).c
 	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).c $(LDFLAGS)
+
 clean:
-	$(RM) $(TARGET)
+	$(RM) $(TARGET) $(TARGET).map 

@@ -5,6 +5,7 @@
  */
 #include "pin.H"
 #include "MyPinToolUtils.h"
+#include "ll_utils.h"
 
 
 
@@ -19,6 +20,9 @@ UINT64 Low = 0;
 UINT64 High = 0;
 UINT64 Start_addr = 0;
 uint8_t CS[100];
+
+race_issues* list = NULL;
+race_issues** list_head = &list;
 
 #define RACE_DEBUG
 
@@ -164,6 +168,7 @@ VOID SetupLocks(IMG img, VOID *v)
     // if the img is the main exectuable and not a linux lib then instrument and get the address bounds
     if(IMG_IsMainExecutable(img))
     {
+        // the path can be saved and append .map to the file for later parsing
         *out << "Loading Main exe " << IMG_Name(img) << ", Image id = " << IMG_Id(img) << endl;
         *out << "Low " << IMG_LowAddress(img) << ", High = " << IMG_HighAddress(img) << " start " << IMG_StartAddress(img) << endl;
         Low = IMG_LowAddress(img); // store lower address bound
@@ -178,7 +183,6 @@ VOID SetupLocks(IMG img, VOID *v)
         RTN_Open(rtn);
         
         RTN_InsertCall(rtn, IPOINT_BEFORE, AFUNPTR(BeforeMutexLock),
-                        IARG_ADDRINT,"request enter",
                         IARG_FUNCARG_ENTRYPOINT_REFERENCE , 0,
                         IARG_THREAD_ID,
                         IARG_END);
@@ -191,7 +195,6 @@ VOID SetupLocks(IMG img, VOID *v)
         RTN_Open(rtn);
         
         RTN_InsertCall(rtn, IPOINT_AFTER, AFUNPTR(AfterMutexLock),
-                       IARG_ADDRINT, "entering CS",
                        IARG_THREAD_ID, 
                        IARG_END);
 
@@ -205,7 +208,6 @@ VOID SetupLocks(IMG img, VOID *v)
         RTN_Open(rtn);
         
         RTN_InsertCall(rtn, IPOINT_BEFORE, AFUNPTR(BeforeMutexUnlock),
-                        IARG_ADDRINT, "request exit",
                         IARG_FUNCARG_ENTRYPOINT_REFERENCE , 0,
                         IARG_THREAD_ID, 
                         IARG_END);
@@ -218,7 +220,6 @@ VOID SetupLocks(IMG img, VOID *v)
         RTN_Open(rtn);
         
         RTN_InsertCall(rtn, IPOINT_AFTER, AFUNPTR(AfterMutexUnlock),
-                    IARG_ADDRINT, "exiting CS",
                     IARG_THREAD_ID,
                     IARG_END);
 

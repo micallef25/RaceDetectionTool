@@ -4,6 +4,9 @@
 
 pthread_mutex_t lock;
 int c = 0;
+int d = 12;
+int a = 123;
+int b = 0;
 
 void *fnC()
 {
@@ -13,6 +16,9 @@ void *fnC()
     {   
         pthread_mutex_lock(&lock);
         c++;
+        d++;
+        a++;
+        b++;
         printf(" %d", c); 
         pthread_mutex_unlock(&lock);
     }   

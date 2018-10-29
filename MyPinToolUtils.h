@@ -1,6 +1,7 @@
 #ifndef PIN_UTILS_H
 #define PIN_UTILS_H
 #include "pin.H"
+#include "ll_utils.h"
 #include <stdbool.h>
 #include <stdint.h>
 #include <pthread.h>
@@ -24,14 +25,14 @@ VOID BeforeSemPost( ADDRINT size, THREADID threadid );
  * @param[in]   lock_ptr        Ptr to lock requested in function call
  * @param[in]   threadId        unique thread id assigned by pin
  */
-VOID BeforeMutexLock( char* name, ADDRINT* lock_ptr, THREADID threadid );
+VOID BeforeMutexLock(ADDRINT* lock_ptr, THREADID threadid );
 
 /*This routine is executed before each mutex called.
  * @param[in]   name			string passed in by callback argument as name of (variable can be changed)
  * @param[in]   lock_ptr        Ptr to lock requested in function call
  * @param[in]   threadId        unique thread id assigned by pin
  */
-VOID BeforeMutexUnlock( char* name,ADDRINT* lock_ptr, THREADID threadid );
+VOID BeforeMutexUnlock(ADDRINT* lock_ptr, THREADID threadid );
 
 /*This routine is executed before each mutex called.
  * @param[in]   reg 		register object to figure out where we are loading to
@@ -54,13 +55,13 @@ VOID RecordMemWrite(VOID * ip, VOID * addr, THREADID threadid );
  * @param[in]   name			string passed in by callback argument as name of (variable can be changed)
  * @param[in]   threadId        unique thread id assigned by pin
  */
-VOID AfterMutexLock(char* name, THREADID threadid );
+VOID AfterMutexLock(THREADID threadid );
 
 /*This routine is executed after each mutex unlck called.
  * @param[in]   name			string passed in by callback argument as name of (variable can be changed)
  * @param[in]   threadId        unique thread id assigned by pin
  */
-VOID AfterMutexUnlock(char* name, THREADID threadid );
+VOID AfterMutexUnlock(THREADID threadid );
 
 VOID read_map(ADDRINT addr, THREADID threadid, bool read);
 
@@ -74,7 +75,6 @@ typedef struct pin_tracker{
 	bool shared_mem; // false for local true for shared amongst threads
 
 }pin_tracker;
-
 
 
 #endif

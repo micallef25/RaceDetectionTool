@@ -1,5 +1,5 @@
 #include "pin.H"
-#include "MyPinTool.h"
+#include "MyPinToolUtils.h"
 #include <pthread.h>
 
 extern std::ostream *out;
@@ -10,7 +10,8 @@ extern UINT64 Start_addr;
 
 std::map<ADDRINT, pin_tracker*>race_map;
 extern uint8_t CS[100];
-
+extern race_issues* list;
+extern race_issues** list_head;
 /*
 Check Thread Id if same mark as safe.
 Case R -> R  -> Safe?
@@ -35,36 +36,36 @@ VOID BeforeSemPost( ADDRINT size, THREADID threadid )
 }
 
 // This routine is executed each time mutex lock is called.
-VOID AfterMutexLock(char* name, THREADID threadid )
+VOID AfterMutexLock(THREADID threadid )
 {
     PIN_GetLock(&lock, threadid+1);
-    *out << "thread [" <<threadid << "] " << name << endl;
+    *out << "thread [" <<threadid << "] " << "In CS" << endl;
     CS[threadid] = SAFE;
     PIN_ReleaseLock(&lock);
 }
 
 // This routine is executed each time mutex lock is called.
-VOID AfterMutexUnlock(char* name, THREADID threadid )
+VOID AfterMutexUnlock(THREADID threadid )
 {
     PIN_GetLock(&lock, threadid+1);
-    *out << "thread [" <<threadid << "] " << name << endl;
+    *out << "thread [" <<threadid << "] " << "left CS" << endl;
     CS[threadid] = UNSAFE;
     PIN_ReleaseLock(&lock);
 }
 
 // This routine is executed each time mutex lock is called.
-VOID BeforeMutexLock(char* name, ADDRINT* lock_name, THREADID threadid )
+VOID BeforeMutexLock(ADDRINT* lock_name, THREADID threadid )
 {
     PIN_GetLock(&lock, threadid+1);
-    *out << "thread [" << threadid << "] " << name << "[" << (pthread_mutex_t*)lock_name << "]" << endl;
+    *out << "thread [" << threadid << "] " << "requesting enter CS" << "[" << (void*)*lock_name << "]" << endl;
     PIN_ReleaseLock(&lock);
 }
 
 // This routine is executed each time mutex unlock is called.
-VOID BeforeMutexUnlock(char* name,ADDRINT* lock_name, THREADID threadid )
+VOID BeforeMutexUnlock(ADDRINT* lock_name, THREADID threadid )
 {
     PIN_GetLock(&lock, threadid+1);
-    *out << "thread [" << threadid << "] " << name << "[" << (pthread_mutex_t*)lock_name << "]" << endl;
+    *out << "thread [" << threadid << "] " << "request exiting CS" << "[" << (void*)*lock_name << "]" << endl;
     PIN_ReleaseLock(&lock);
 }
 
@@ -78,7 +79,7 @@ VOID RecordMemRead(REG reg, VOID * ip, VOID * addr, THREADID threadid )
     if((ADDRINT)ip < High && (ADDRINT)addr > Start_addr)
     {
         read_map((ADDRINT)addr, threadid,READ);
-        *out << "thread ["<< threadid <<"] " <<"R " << (ADDRINT)addr << " ip: " << ip << endl;
+        *out << "thread ["<< threadid <<"] " <<"R " << addr << " ip: " << ip << endl;
     }
     PIN_ReleaseLock(&lock);
 }
@@ -89,7 +90,7 @@ VOID RecordMemWrite(VOID * ip, VOID * addr, THREADID threadid )
     PIN_GetLock(&lock, threadid+1);
     if((ADDRINT)ip < High && (ADDRINT)addr > Start_addr)
     {
-        *out << "thread ["<< threadid <<"] "<< "W " << (ADDRINT)addr  <<  " ip: " << ip  << endl;
+        *out << "thread ["<< threadid <<"] "<< "W " << addr  <<  " ip: " << ip  << endl;
         read_map((ADDRINT)addr, threadid,WRITE);
     }
     PIN_ReleaseLock(&lock);
@@ -97,7 +98,7 @@ VOID RecordMemWrite(VOID * ip, VOID * addr, THREADID threadid )
 
 // this function will analyze whether or not the memory region is safe
 // read = false for a write true for a read
-char analyze_map(pin_tracker* mem_region, bool read)
+int analyze_map(pin_tracker* mem_region, bool read)
 {
     // *out << "record " << (mem_region->read ? " Read" : "Write") <<" new " << (read ? " Read" : "Write") <<  endl;
 
@@ -132,9 +133,10 @@ VOID read_map(ADDRINT addr, THREADID threadid, bool read)
 
     std::map<ADDRINT,pin_tracker*>::const_iterator got = race_map.find (addr);
     pin_tracker* write_track = NULL;
-    char safe=UNSAFE;
+    int safe=UNSAFE;
 
-    if ( got == race_map.end() ){
+    if ( got == race_map.end() )
+    {
         *out << "address not found: " << addr << endl;
         write_track = new pin_tracker;
         write_track->threadid = threadid;
@@ -142,7 +144,8 @@ VOID read_map(ADDRINT addr, THREADID threadid, bool read)
         write_track->shared_mem = false; 
         race_map[(ADDRINT)addr] = write_track;
     }
-    else{
+    else
+    {
         *out << "thread [" << got->second->threadid << "] ";
         if(got->second->read)
             *out << "is reading: " << got->first << endl;
@@ -152,22 +155,34 @@ VOID read_map(ADDRINT addr, THREADID threadid, bool read)
         // *out << "shared access " << (got->second->shared_mem ? " Yes" : "No") << endl;
         // if we have shared memory we need to check for a data race
         if(got->second->shared_mem == true)
+        {
             safe = analyze_map(got->second,read);
+        }
 
         // if this is the first instance of a different thread accessing the memory set to shared and check for a race
         else if(got->second->threadid != threadid)
         {
+            printf("id else  [%d], [%d]\n",threadid, got->second->threadid);
             got->second->shared_mem = true;
             safe = analyze_map(got->second,read);
-            *out << "SHARED " << endl;
+            std::cout << "SHARED " << std::endl;
+            std::cout << "safe: " << safe <<std::endl;
+            printf("shared\n");
         }
         else
             safe = SAFE; 
 
         if(CS[threadid] == UNSAFE && safe == UNSAFE)
-            *out << "RACE CONDITION DETECTED ERROR ERROR WTF!!!!!"  << endl;
+        {
+            std::cout << "RACE CONDITION DETECTED ERROR ERROR WTF!!!!!"  << endl;
+            printf("id unsafe [%d], [%d]\n",threadid, got->second->threadid);
+            if(!contains(list_head,(ADDRINT*)got->first))
+                add_to_effected(list_head,(void*)addr,got->second->threadid, threadid);
+            print_issue_queue(list_head);
+            got->second->threadid = threadid;
+        }
 
-        got->second->threadid = threadid;
+        //got->second->threadid = threadid;
         got->second->read = read;
     }
 
