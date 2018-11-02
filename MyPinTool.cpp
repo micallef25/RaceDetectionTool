@@ -174,6 +174,7 @@ VOID SetupLocks(IMG img, VOID *v)
         Low = IMG_LowAddress(img); // store lower address bound
         High = IMG_HighAddress(img); // store higher address bound
         Start_addr = IMG_HighAddress(img);
+    
     }
     // search for all pthread lock symbols in the main exxectuable
     rtn = RTN_FindByName(img, "pthread_mutex_lock");
@@ -251,6 +252,7 @@ VOID SetupLocks(IMG img, VOID *v)
 
         RTN_Close(rtn);
     }
+// }
 
 }
 
@@ -432,6 +434,7 @@ int main(int argc, char *argv[])
 {
     // Initialize the pin lock
     PIN_InitLock(&lock);
+    PIN_InitSymbols();
     // Initialize PIN library. Print help message if -h(elp) is specified
     // in the command line or the command line is invalid 
     if( PIN_Init(argc,argv) )
@@ -439,7 +442,7 @@ int main(int argc, char *argv[])
         return Usage();
     } 
 
-    PIN_InitSymbols();
+    // PIN_InitSymbols();
 
     memset(&CS[0],UNSAFE,100);
 
