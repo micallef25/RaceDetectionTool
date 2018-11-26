@@ -4,9 +4,9 @@
 
 pthread_mutex_t lock;
 int c = 0;
-int d = 12;
-int a = 123;
-int b = 0;
+int a = 0;
+int racevar;
+int var2;
 
 void *fnC()
 {
@@ -14,13 +14,11 @@ void *fnC()
     //char* var = malloc(sizeof(char));
     for(i=0;i<10;i++)
     {   
-        pthread_mutex_lock(&lock);
         c++;
-        b++;
-        printf(" %d", c); 
-        pthread_mutex_unlock(&lock);
-        d++;
         a++;
+        racevar++;
+        var2++;
+        printf(" %d", c); 
     }   
    // free(var);
 }
@@ -36,14 +34,30 @@ int main()
         printf("\n mutex init failed\n");
         return 1;
     }
-    /* Create two threads */
-    if( (rt1=pthread_create( &t1, NULL, &fnC, NULL)) )
-        printf("Thread creation failed: %d\n", rt1);
+
+    /* parent threads writes to the shared location but should not cause an alarm */
+    c++;
+    a++;
+    racevar++;
+    var2++;
+
+    /* Create one thread it will write to a shared variable but this should not cause an alarm */
     if( (rt2=pthread_create( &t2, NULL, &fnC, NULL)) )
         printf("Thread creation failed: %d\n", rt2);
     /* Wait for both threads to finish */
-    pthread_join( t1, NULL);
+
+    c++;
+    racevar++;
+
     pthread_join( t2, NULL);
+
+
+    /* parent threads writes to the shared location but should not cause an alarm */
+    c++;
+    a++;
+    racevar++;
+    var2++;
+    
     pthread_mutex_destroy(&lock);
     printf ("\n");
     return 0;

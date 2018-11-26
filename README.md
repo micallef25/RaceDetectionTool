@@ -33,4 +33,12 @@ this command line does the following:
 * -t obj-intel64/MyPinTool.so --> -t option tells the pin executable which tool .so file to use. In this case it is our RaceDetection tool called MyPinTool. 
 * -- ../../../../race_tests/race This tells what program we are doing our dynamic analysis on
 
+#Timing
+
+time ./naiverace
+time valgrind --tool=helgrind race_tests/naiverace
+time ../../../pin -t obj-intel64/MyPinTool.so -o 
+out -- race_tests/naiverace
+
+
 

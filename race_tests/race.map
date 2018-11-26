@@ -5,13 +5,13 @@ Archive member included to satisfy reference by file (symbol)
 
 As-needed library included to satisfy reference by file (symbol)
 
-libpthread.so.0               /tmp/ccYkeK9u.o (pthread_mutex_destroy@@GLIBC_2.2.5)
-libc.so.6                     /tmp/ccYkeK9u.o (puts@@GLIBC_2.2.5)
+libpthread.so.0               /tmp/ccddn2Hb.o (pthread_mutex_destroy@@GLIBC_2.2.5)
+libc.so.6                     /tmp/ccddn2Hb.o (puts@@GLIBC_2.2.5)
 
 Allocating common symbols
 Common symbol       size              file
 
-lock                0x28              /tmp/ccYkeK9u.o
+lock                0x28              /tmp/ccddn2Hb.o
 
 Discarded input sections
 
@@ -22,7 +22,7 @@ Discarded input sections
  .note.GNU-stack
                 0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/7/crtbegin.o
  .note.GNU-stack
-                0x0000000000000000        0x0 /tmp/ccYkeK9u.o
+                0x0000000000000000        0x0 /tmp/ccddn2Hb.o
  .note.GNU-stack
                 0x0000000000000000        0x0 /usr/lib/x86_64-linux-gnu/libc_nonshared.a(elf-init.oS)
  .note.GNU-stack
@@ -40,7 +40,7 @@ Linker script and memory map
 LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crt1.o
 LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o
 LOAD /usr/lib/gcc/x86_64-linux-gnu/7/crtbegin.o
-LOAD /tmp/ccYkeK9u.o
+LOAD /tmp/ccddn2Hb.o
 LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/libpthread.so
 START GROUP
 LOAD /lib/x86_64-linux-gnu/libpthread.so.0
@@ -182,7 +182,7 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  .text          0x00000000004007ea        0x0 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o
  *fill*         0x00000000004007ea        0x6 
  .text          0x00000000004007f0       0xa7 /usr/lib/gcc/x86_64-linux-gnu/7/crtbegin.o
- .text          0x0000000000400897      0x184 /tmp/ccYkeK9u.o
+ .text          0x0000000000400897      0x184 /tmp/ccddn2Hb.o
                 0x0000000000400897                fnC
                 0x000000000040091c                main
  *fill*         0x0000000000400a1b        0x5 
@@ -206,7 +206,7 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  *(.rodata .rodata.* .gnu.linkonce.r.*)
  .rodata.cst4   0x0000000000400aa0        0x4 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crt1.o
                 0x0000000000400aa0                _IO_stdin_used
- .rodata        0x0000000000400aa4       0x34 /tmp/ccYkeK9u.o
+ .rodata        0x0000000000400aa4       0x34 /tmp/ccddn2Hb.o
 
 .rodata1
  *(.rodata1)
@@ -221,7 +221,7 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  *(.eh_frame)
  .eh_frame      0x0000000000400b18       0x30 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crt1.o
  .eh_frame      0x0000000000400b48       0x40 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crt1.o
- .eh_frame      0x0000000000400b88       0x40 /tmp/ccYkeK9u.o
+ .eh_frame      0x0000000000400b88       0x40 /tmp/ccddn2Hb.o
                                          0x58 (size before relaxing)
  .eh_frame      0x0000000000400bc8       0x60 /usr/lib/x86_64-linux-gnu/libc_nonshared.a(elf-init.oS)
                                          0x78 (size before relaxing)
@@ -325,7 +325,7 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  *fill*         0x0000000000601074        0x4 
  .data          0x0000000000601078        0x8 /usr/lib/gcc/x86_64-linux-gnu/7/crtbegin.o
                 0x0000000000601078                __dso_handle
- .data          0x0000000000601080        0x8 /tmp/ccYkeK9u.o
+ .data          0x0000000000601080        0x8 /tmp/ccddn2Hb.o
                 0x0000000000601080                d
                 0x0000000000601084                a
  .data          0x0000000000601088        0x0 /usr/lib/x86_64-linux-gnu/libc_nonshared.a(elf-init.oS)
@@ -354,7 +354,7 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  .bss           0x00000000006010a0        0x0 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o
  .bss           0x00000000006010a0        0x1 /usr/lib/gcc/x86_64-linux-gnu/7/crtbegin.o
  *fill*         0x00000000006010a1        0x3 
- .bss           0x00000000006010a4        0x8 /tmp/ccYkeK9u.o
+ .bss           0x00000000006010a4        0x8 /tmp/ccddn2Hb.o
                 0x00000000006010a4                c
                 0x00000000006010a8                b
  .bss           0x00000000006010ac        0x0 /usr/lib/x86_64-linux-gnu/libc_nonshared.a(elf-init.oS)
@@ -362,7 +362,7 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  .bss           0x00000000006010ac        0x0 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  *(COMMON)
  *fill*         0x00000000006010ac       0x14 
- COMMON         0x00000000006010c0       0x28 /tmp/ccYkeK9u.o
+ COMMON         0x00000000006010c0       0x28 /tmp/ccddn2Hb.o
                 0x00000000006010c0                lock
                 0x00000000006010e8                . = ALIGN ((. != 0x0)?0x8:0x1)
 
@@ -406,7 +406,7 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  *(.comment)
  .comment       0x0000000000000000       0x2a /usr/lib/gcc/x86_64-linux-gnu/7/crtbegin.o
                                          0x2b (size before relaxing)
- .comment       0x000000000000002a       0x2b /tmp/ccYkeK9u.o
+ .comment       0x000000000000002a       0x2b /tmp/ccddn2Hb.o
  .comment       0x000000000000002a       0x2b /usr/lib/gcc/x86_64-linux-gnu/7/crtend.o
 
 .debug
@@ -424,29 +424,29 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
 .debug_aranges  0x0000000000000000       0x30
  *(.debug_aranges)
  .debug_aranges
-                0x0000000000000000       0x30 /tmp/ccYkeK9u.o
+                0x0000000000000000       0x30 /tmp/ccddn2Hb.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
 .debug_info     0x0000000000000000      0x539
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x0000000000000000      0x539 /tmp/ccYkeK9u.o
+ .debug_info    0x0000000000000000      0x539 /tmp/ccddn2Hb.o
 
 .debug_abbrev   0x0000000000000000      0x145
  *(.debug_abbrev)
- .debug_abbrev  0x0000000000000000      0x145 /tmp/ccYkeK9u.o
+ .debug_abbrev  0x0000000000000000      0x145 /tmp/ccddn2Hb.o
 
 .debug_line     0x0000000000000000      0x140
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x0000000000000000      0x140 /tmp/ccYkeK9u.o
+ .debug_line    0x0000000000000000      0x140 /tmp/ccddn2Hb.o
 
 .debug_frame
  *(.debug_frame)
 
 .debug_str      0x0000000000000000      0x3b3
  *(.debug_str)
- .debug_str     0x0000000000000000      0x3b3 /tmp/ccYkeK9u.o
+ .debug_str     0x0000000000000000      0x3b3 /tmp/ccddn2Hb.o
                                         0x41e (size before relaxing)
 
 .debug_loc

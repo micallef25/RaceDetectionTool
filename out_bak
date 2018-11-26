@@ -1,0 +1,486 @@
+Analysis For race
+START
+0x0000000000601084
+0x0000000000601088
+END
+
+Loading /home/ivyleague-sloth/Documents/Pin/pin-3.7-97619-g0d0c92f4f-gcc-linux/source/tools/ThreadDetector/race_tests/race, Image id = 1
+Loading Main exe /home/ivyleague-sloth/Documents/Pin/pin-3.7-97619-g0d0c92f4f-gcc-linux/source/tools/ThreadDetector/race_tests/race, Image id = 1
+Low 4194304, High = 4197419 start 140443726929920
+Loading /lib64/ld-linux-x86-64.so.2, Image id = 2
+Loading [vdso], Image id = 3
+Loading /lib/x86_64-linux-gnu/libpthread.so.0, Image id = 4
+Loading /lib/x86_64-linux-gnu/libc.so.6, Image id = 5
+address not found: 6295544
+thread [0] R 0x0000000000600ff8 ip: 0x00000000004006cc
+address not found: 140443398457128
+thread [0] R 0x00007fbb86e04728 ip: 0x0000000000400924
+address not found: 6295716
+thread [1] R 0x00000000006010a4 ip: 0x00000000004008b2
+thread [1] W 0x00000000006010a4 ip: 0x00000000004008bb
+thread [1] is writing: 6295716
+address not found: 6295680
+thread [1] R 0x0000000000601080 ip: 0x00000000004008c1
+thread [1] W 0x0000000000601080 ip: 0x00000000004008ca
+thread [1] is writing: 6295680
+address not found: 6295684
+thread [1] R 0x0000000000601084 ip: 0x00000000004008d0
+thread [1] W 0x0000000000601084 ip: 0x00000000004008d9
+thread [1] is writing: 6295684
+address not found: 6295720
+thread [1] R 0x00000000006010a8 ip: 0x00000000004008df
+thread [1] W 0x00000000006010a8 ip: 0x00000000004008e8
+thread [1] is writing: 6295720
+thread [1] is writing: 6295716
+thread [1] R 0x00000000006010a4 ip: 0x00000000004008ee
+thread [1] is reading: 6295716
+thread [1] R 0x00000000006010a4 ip: 0x00000000004008b2
+thread [1] W 0x00000000006010a4 ip: 0x00000000004008bb
+thread [1] is reading: 6295716
+thread [1] is writing: 6295680
+thread [1] R 0x0000000000601080 ip: 0x00000000004008c1
+thread [1] W 0x0000000000601080 ip: 0x00000000004008ca
+thread [1] is reading: 6295680
+thread [1] is writing: 6295684
+thread [1] R 0x0000000000601084 ip: 0x00000000004008d0
+thread [1] W 0x0000000000601084 ip: 0x00000000004008d9
+thread [1] is reading: 6295684
+thread [1] is writing: 6295720
+thread [1] R 0x00000000006010a8 ip: 0x00000000004008df
+thread [1] W 0x00000000006010a8 ip: 0x00000000004008e8
+thread [1] is reading: 6295720
+thread [1] is writing: 6295716
+thread [1] R 0x00000000006010a4 ip: 0x00000000004008ee
+thread [1] is reading: 6295716
+thread [1] R 0x00000000006010a4 ip: 0x00000000004008b2
+thread [1] W 0x00000000006010a4 ip: 0x00000000004008bb
+thread [1] is reading: 6295716
+thread [1] is writing: 6295680
+thread [1] R 0x0000000000601080 ip: 0x00000000004008c1
+thread [1] W 0x0000000000601080 ip: 0x00000000004008ca
+thread [1] is reading: 6295680
+thread [1] is writing: 6295684
+thread [1] R 0x0000000000601084 ip: 0x00000000004008d0
+thread [1] W 0x0000000000601084 ip: 0x00000000004008d9
+thread [1] is reading: 6295684
+thread [1] is writing: 6295720
+thread [1] R 0x00000000006010a8 ip: 0x00000000004008df
+thread [1] W 0x00000000006010a8 ip: 0x00000000004008e8
+thread [1] is reading: 6295720
+thread [1] is writing: 6295716
+thread [1] R 0x00000000006010a4 ip: 0x00000000004008ee
+thread [1] is reading: 6295716
+thread [1] R 0x00000000006010a4 ip: 0x00000000004008b2
+thread [1] W 0x00000000006010a4 ip: 0x00000000004008bb
+thread [1] is reading: 6295716
+thread [1] is writing: 6295680
+thread [1] R 0x0000000000601080 ip: 0x00000000004008c1
+thread [1] W 0x0000000000601080 ip: 0x00000000004008ca
+thread [1] is reading: 6295680
+thread [1] is writing: 6295684
+thread [1] R 0x0000000000601084 ip: 0x00000000004008d0
+thread [1] W 0x0000000000601084 ip: 0x00000000004008d9
+thread [1] is reading: 6295684
+thread [1] is writing: 6295720
+thread [1] R 0x00000000006010a8 ip: 0x00000000004008df
+thread [1] W 0x00000000006010a8 ip: 0x00000000004008e8
+thread [1] is reading: 6295720
+thread [1] is writing: 6295716
+thread [1] R 0x00000000006010a4 ip: 0x00000000004008ee
+thread [1] is reading: 6295716
+thread [1] R 0x00000000006010a4 ip: 0x00000000004008b2
+thread [1] W 0x00000000006010a4 ip: 0x00000000004008bb
+thread [1] is reading: 6295716
+thread [1] is writing: 6295680
+thread [1] R 0x0000000000601080 ip: 0x00000000004008c1
+thread [1] W 0x0000000000601080 ip: 0x00000000004008ca
+thread [1] is reading: 6295680
+thread [1] is writing: 6295684
+thread [1] R 0x0000000000601084 ip: 0x00000000004008d0
+thread [1] W 0x0000000000601084 ip: 0x00000000004008d9
+thread [1] is reading: 6295684
+thread [1] is writing: 6295720
+thread [1] R 0x00000000006010a8 ip: 0x00000000004008df
+thread [1] W 0x00000000006010a8 ip: 0x00000000004008e8
+thread [1] is reading: 6295720
+thread [1] is writing: 6295716
+thread [1] R 0x00000000006010a4 ip: 0x00000000004008ee
+thread [1] is reading: 6295716
+thread [1] R 0x00000000006010a4 ip: 0x00000000004008b2
+thread [1] W 0x00000000006010a4 ip: 0x00000000004008bb
+thread [1] is reading: 6295716
+thread [1] is writing: 6295680
+thread [1] R 0x0000000000601080 ip: 0x00000000004008c1
+thread [1] W 0x0000000000601080 ip: 0x00000000004008ca
+thread [1] is reading: 6295680
+thread [1] is writing: 6295684
+thread [1] R 0x0000000000601084 ip: 0x00000000004008d0
+thread [1] W 0x0000000000601084 ip: 0x00000000004008d9
+thread [1] is reading: 6295684
+thread [1] is writing: 6295720
+thread [1] R 0x00000000006010a8 ip: 0x00000000004008df
+thread [1] W 0x00000000006010a8 ip: 0x00000000004008e8
+thread [1] is reading: 6295720
+thread [1] is writing: 6295716
+thread [1] R 0x00000000006010a4 ip: 0x00000000004008ee
+thread [1] is reading: 6295716
+thread [1] R 0x00000000006010a4 ip: 0x00000000004008b2
+thread [1] W 0x00000000006010a4 ip: 0x00000000004008bb
+thread [1] is reading: 6295716
+thread [1] is writing: 6295680
+thread [1] R 0x0000000000601080 ip: 0x00000000004008c1
+thread [1] W 0x0000000000601080 ip: 0x00000000004008ca
+thread [1] is reading: 6295680
+thread [1] is writing: 6295684
+thread [1] R 0x0000000000601084 ip: 0x00000000004008d0
+thread [1] W 0x0000000000601084 ip: 0x00000000004008d9
+thread [1] is reading: 6295684
+thread [1] is writing: 6295720
+thread [1] R 0x00000000006010a8 ip: 0x00000000004008df
+thread [1] W 0x00000000006010a8 ip: 0x00000000004008e8
+thread [1] is reading: 6295720
+thread [1] is writing: 6295716
+thread [1] R 0x00000000006010a4 ip: 0x00000000004008ee
+thread [1] is reading: 6295716
+thread [1] R 0x00000000006010a4 ip: 0x00000000004008b2
+thread [1] W 0x00000000006010a4 ip: 0x00000000004008bb
+thread [1] is reading: 6295716
+thread [1] is writing: 6295680
+thread [1] R 0x0000000000601080 ip: 0x00000000004008c1
+thread [1] W 0x0000000000601080 ip: 0x00000000004008ca
+thread [1] is reading: 6295680
+thread [1] is writing: 6295684
+thread [1] R 0x0000000000601084 ip: 0x00000000004008d0
+thread [1] W 0x0000000000601084 ip: 0x00000000004008d9
+thread [1] is reading: 6295684
+thread [1] is writing: 6295720
+thread [1] R 0x00000000006010a8 ip: 0x00000000004008df
+thread [1] W 0x00000000006010a8 ip: 0x00000000004008e8
+thread [1] is reading: 6295720
+thread [1] is writing: 6295716
+thread [1] R 0x00000000006010a4 ip: 0x00000000004008ee
+thread [1] is reading: 6295716
+thread [1] R 0x00000000006010a4 ip: 0x00000000004008b2
+thread [1] W 0x00000000006010a4 ip: 0x00000000004008bb
+thread [1] is reading: 6295716
+thread [1] is writing: 6295680
+thread [1] R 0x0000000000601080 ip: 0x00000000004008c1
+thread [1] W 0x0000000000601080 ip: 0x00000000004008ca
+thread [1] is reading: 6295680
+thread [1] is writing: 6295684
+thread [1] R 0x0000000000601084 ip: 0x00000000004008d0
+thread [1] W 0x0000000000601084 ip: 0x00000000004008d9
+thread [1] is reading: 6295684
+thread [1] is writing: 6295720
+thread [1] R 0x00000000006010a8 ip: 0x00000000004008df
+thread [1] W 0x00000000006010a8 ip: 0x00000000004008e8
+thread [1] is reading: 6295720
+thread [1] is writing: 6295716
+thread [1] R 0x00000000006010a4 ip: 0x00000000004008ee
+thread [1] is reading: 6295716
+thread [1] R 0x00000000006010a4 ip: 0x00000000004008b2
+thread [1] W 0x00000000006010a4 ip: 0x00000000004008bb
+thread [1] is reading: 6295716
+thread [1] is writing: 6295680
+thread [1] R 0x0000000000601080 ip: 0x00000000004008c1
+thread [1] W 0x0000000000601080 ip: 0x00000000004008ca
+thread [1] is reading: 6295680
+thread [1] is writing: 6295684
+thread [1] R 0x0000000000601084 ip: 0x00000000004008d0
+thread [1] W 0x0000000000601084 ip: 0x00000000004008d9
+thread [1] is reading: 6295684
+thread [1] is writing: 6295720
+thread [1] R 0x00000000006010a8 ip: 0x00000000004008df
+thread [1] W 0x00000000006010a8 ip: 0x00000000004008e8
+thread [1] is reading: 6295720
+thread [1] is writing: 6295716
+thread [1] R 0x00000000006010a4 ip: 0x00000000004008ee
+thread [1] is reading: 6295716
+READ after READ
+thread [2] R 0x00000000006010a4 ip: 0x00000000004008b2
+thread [2] W 0x00000000006010a4 ip: 0x00000000004008bb
+thread [1] is reading: 6295716
+WRITE after READ 
+thread [1] is writing: 6295680
+READ after WRITE 
+thread [2] R 0x0000000000601080 ip: 0x00000000004008c1
+thread [2] W 0x0000000000601080 ip: 0x00000000004008ca
+thread [2] is reading: 6295680
+WRITE after READ 
+thread [1] is writing: 6295684
+READ after WRITE 
+thread [2] R 0x0000000000601084 ip: 0x00000000004008d0
+thread [2] W 0x0000000000601084 ip: 0x00000000004008d9
+thread [2] is reading: 6295684
+WRITE after READ 
+thread [1] is writing: 6295720
+READ after WRITE 
+thread [2] R 0x00000000006010a8 ip: 0x00000000004008df
+thread [2] W 0x00000000006010a8 ip: 0x00000000004008e8
+thread [2] is reading: 6295720
+WRITE after READ 
+thread [1] is writing: 6295716
+READ after WRITE 
+thread [2] R 0x00000000006010a4 ip: 0x00000000004008ee
+thread [2] is reading: 6295716
+READ after READ
+thread [2] R 0x00000000006010a4 ip: 0x00000000004008b2
+thread [2] W 0x00000000006010a4 ip: 0x00000000004008bb
+thread [2] is reading: 6295716
+WRITE after READ 
+thread [2] is writing: 6295680
+READ after WRITE 
+thread [2] R 0x0000000000601080 ip: 0x00000000004008c1
+thread [2] W 0x0000000000601080 ip: 0x00000000004008ca
+thread [2] is reading: 6295680
+WRITE after READ 
+thread [2] is writing: 6295684
+READ after WRITE 
+thread [2] R 0x0000000000601084 ip: 0x00000000004008d0
+thread [2] W 0x0000000000601084 ip: 0x00000000004008d9
+thread [2] is reading: 6295684
+WRITE after READ 
+thread [2] is writing: 6295720
+READ after WRITE 
+thread [2] R 0x00000000006010a8 ip: 0x00000000004008df
+thread [2] W 0x00000000006010a8 ip: 0x00000000004008e8
+thread [2] is reading: 6295720
+WRITE after READ 
+thread [2] is writing: 6295716
+READ after WRITE 
+thread [2] R 0x00000000006010a4 ip: 0x00000000004008ee
+thread [2] is reading: 6295716
+READ after READ
+thread [2] R 0x00000000006010a4 ip: 0x00000000004008b2
+thread [2] W 0x00000000006010a4 ip: 0x00000000004008bb
+thread [2] is reading: 6295716
+WRITE after READ 
+thread [2] is writing: 6295680
+READ after WRITE 
+thread [2] R 0x0000000000601080 ip: 0x00000000004008c1
+thread [2] W 0x0000000000601080 ip: 0x00000000004008ca
+thread [2] is reading: 6295680
+WRITE after READ 
+thread [2] is writing: 6295684
+READ after WRITE 
+thread [2] R 0x0000000000601084 ip: 0x00000000004008d0
+thread [2] W 0x0000000000601084 ip: 0x00000000004008d9
+thread [2] is reading: 6295684
+WRITE after READ 
+thread [2] is writing: 6295720
+READ after WRITE 
+thread [2] R 0x00000000006010a8 ip: 0x00000000004008df
+thread [2] W 0x00000000006010a8 ip: 0x00000000004008e8
+thread [2] is reading: 6295720
+WRITE after READ 
+thread [2] is writing: 6295716
+READ after WRITE 
+thread [2] R 0x00000000006010a4 ip: 0x00000000004008ee
+thread [2] is reading: 6295716
+READ after READ
+thread [2] R 0x00000000006010a4 ip: 0x00000000004008b2
+thread [2] W 0x00000000006010a4 ip: 0x00000000004008bb
+thread [2] is reading: 6295716
+WRITE after READ 
+thread [2] is writing: 6295680
+READ after WRITE 
+thread [2] R 0x0000000000601080 ip: 0x00000000004008c1
+thread [2] W 0x0000000000601080 ip: 0x00000000004008ca
+thread [2] is reading: 6295680
+WRITE after READ 
+thread [2] is writing: 6295684
+READ after WRITE 
+thread [2] R 0x0000000000601084 ip: 0x00000000004008d0
+thread [2] W 0x0000000000601084 ip: 0x00000000004008d9
+thread [2] is reading: 6295684
+WRITE after READ 
+thread [2] is writing: 6295720
+READ after WRITE 
+thread [2] R 0x00000000006010a8 ip: 0x00000000004008df
+thread [2] W 0x00000000006010a8 ip: 0x00000000004008e8
+thread [2] is reading: 6295720
+WRITE after READ 
+thread [2] is writing: 6295716
+READ after WRITE 
+thread [2] R 0x00000000006010a4 ip: 0x00000000004008ee
+thread [2] is reading: 6295716
+READ after READ
+thread [2] R 0x00000000006010a4 ip: 0x00000000004008b2
+thread [2] W 0x00000000006010a4 ip: 0x00000000004008bb
+thread [2] is reading: 6295716
+WRITE after READ 
+thread [2] is writing: 6295680
+READ after WRITE 
+thread [2] R 0x0000000000601080 ip: 0x00000000004008c1
+thread [2] W 0x0000000000601080 ip: 0x00000000004008ca
+thread [2] is reading: 6295680
+WRITE after READ 
+thread [2] is writing: 6295684
+READ after WRITE 
+thread [2] R 0x0000000000601084 ip: 0x00000000004008d0
+thread [2] W 0x0000000000601084 ip: 0x00000000004008d9
+thread [2] is reading: 6295684
+WRITE after READ 
+thread [2] is writing: 6295720
+READ after WRITE 
+thread [2] R 0x00000000006010a8 ip: 0x00000000004008df
+thread [2] W 0x00000000006010a8 ip: 0x00000000004008e8
+thread [2] is reading: 6295720
+WRITE after READ 
+thread [2] is writing: 6295716
+READ after WRITE 
+thread [2] R 0x00000000006010a4 ip: 0x00000000004008ee
+thread [2] is reading: 6295716
+READ after READ
+thread [2] R 0x00000000006010a4 ip: 0x00000000004008b2
+thread [2] W 0x00000000006010a4 ip: 0x00000000004008bb
+thread [2] is reading: 6295716
+WRITE after READ 
+thread [2] is writing: 6295680
+READ after WRITE 
+thread [2] R 0x0000000000601080 ip: 0x00000000004008c1
+thread [2] W 0x0000000000601080 ip: 0x00000000004008ca
+thread [2] is reading: 6295680
+WRITE after READ 
+thread [2] is writing: 6295684
+READ after WRITE 
+thread [2] R 0x0000000000601084 ip: 0x00000000004008d0
+thread [2] W 0x0000000000601084 ip: 0x00000000004008d9
+thread [2] is reading: 6295684
+WRITE after READ 
+thread [2] is writing: 6295720
+READ after WRITE 
+thread [2] R 0x00000000006010a8 ip: 0x00000000004008df
+thread [2] W 0x00000000006010a8 ip: 0x00000000004008e8
+thread [2] is reading: 6295720
+WRITE after READ 
+thread [2] is writing: 6295716
+READ after WRITE 
+thread [2] R 0x00000000006010a4 ip: 0x00000000004008ee
+thread [2] is reading: 6295716
+READ after READ
+thread [2] R 0x00000000006010a4 ip: 0x00000000004008b2
+thread [2] W 0x00000000006010a4 ip: 0x00000000004008bb
+thread [2] is reading: 6295716
+WRITE after READ 
+thread [2] is writing: 6295680
+READ after WRITE 
+thread [2] R 0x0000000000601080 ip: 0x00000000004008c1
+thread [2] W 0x0000000000601080 ip: 0x00000000004008ca
+thread [2] is reading: 6295680
+WRITE after READ 
+thread [2] is writing: 6295684
+READ after WRITE 
+thread [2] R 0x0000000000601084 ip: 0x00000000004008d0
+thread [2] W 0x0000000000601084 ip: 0x00000000004008d9
+thread [2] is reading: 6295684
+WRITE after READ 
+thread [2] is writing: 6295720
+READ after WRITE 
+thread [2] R 0x00000000006010a8 ip: 0x00000000004008df
+thread [2] W 0x00000000006010a8 ip: 0x00000000004008e8
+thread [2] is reading: 6295720
+WRITE after READ 
+thread [2] is writing: 6295716
+READ after WRITE 
+thread [2] R 0x00000000006010a4 ip: 0x00000000004008ee
+thread [2] is reading: 6295716
+READ after READ
+thread [2] R 0x00000000006010a4 ip: 0x00000000004008b2
+thread [2] W 0x00000000006010a4 ip: 0x00000000004008bb
+thread [2] is reading: 6295716
+WRITE after READ 
+thread [2] is writing: 6295680
+READ after WRITE 
+thread [2] R 0x0000000000601080 ip: 0x00000000004008c1
+thread [2] W 0x0000000000601080 ip: 0x00000000004008ca
+thread [2] is reading: 6295680
+WRITE after READ 
+thread [2] is writing: 6295684
+READ after WRITE 
+thread [2] R 0x0000000000601084 ip: 0x00000000004008d0
+thread [2] W 0x0000000000601084 ip: 0x00000000004008d9
+thread [2] is reading: 6295684
+WRITE after READ 
+thread [2] is writing: 6295720
+READ after WRITE 
+thread [2] R 0x00000000006010a8 ip: 0x00000000004008df
+thread [2] W 0x00000000006010a8 ip: 0x00000000004008e8
+thread [2] is reading: 6295720
+WRITE after READ 
+thread [2] is writing: 6295716
+READ after WRITE 
+thread [2] R 0x00000000006010a4 ip: 0x00000000004008ee
+thread [2] is reading: 6295716
+READ after READ
+thread [2] R 0x00000000006010a4 ip: 0x00000000004008b2
+thread [2] W 0x00000000006010a4 ip: 0x00000000004008bb
+thread [2] is reading: 6295716
+WRITE after READ 
+thread [2] is writing: 6295680
+READ after WRITE 
+thread [2] R 0x0000000000601080 ip: 0x00000000004008c1
+thread [2] W 0x0000000000601080 ip: 0x00000000004008ca
+thread [2] is reading: 6295680
+WRITE after READ 
+thread [2] is writing: 6295684
+READ after WRITE 
+thread [2] R 0x0000000000601084 ip: 0x00000000004008d0
+thread [2] W 0x0000000000601084 ip: 0x00000000004008d9
+thread [2] is reading: 6295684
+WRITE after READ 
+thread [2] is writing: 6295720
+READ after WRITE 
+thread [2] R 0x00000000006010a8 ip: 0x00000000004008df
+thread [2] W 0x00000000006010a8 ip: 0x00000000004008e8
+thread [2] is reading: 6295720
+WRITE after READ 
+thread [2] is writing: 6295716
+READ after WRITE 
+thread [2] R 0x00000000006010a4 ip: 0x00000000004008ee
+thread [2] is reading: 6295716
+READ after READ
+thread [2] R 0x00000000006010a4 ip: 0x00000000004008b2
+thread [2] W 0x00000000006010a4 ip: 0x00000000004008bb
+thread [2] is reading: 6295716
+WRITE after READ 
+thread [2] is writing: 6295680
+READ after WRITE 
+thread [2] R 0x0000000000601080 ip: 0x00000000004008c1
+thread [2] W 0x0000000000601080 ip: 0x00000000004008ca
+thread [2] is reading: 6295680
+WRITE after READ 
+thread [2] is writing: 6295684
+READ after WRITE 
+thread [2] R 0x0000000000601084 ip: 0x00000000004008d0
+thread [2] W 0x0000000000601084 ip: 0x00000000004008d9
+thread [2] is reading: 6295684
+WRITE after READ 
+thread [2] is writing: 6295720
+READ after WRITE 
+thread [2] R 0x00000000006010a8 ip: 0x00000000004008df
+thread [2] W 0x00000000006010a8 ip: 0x00000000004008e8
+thread [2] is reading: 6295720
+WRITE after READ 
+thread [2] is writing: 6295716
+READ after WRITE 
+thread [2] R 0x00000000006010a4 ip: 0x00000000004008ee
+Count[1] = 15724
+Count[2] = 8127
+thread [0] W 0x00000000006010a0 ip: 0x0000000000400872
+address not found: 6295712
+Count[0] = 190404
+Unloading /home/ivyleague-sloth/Documents/Pin/pin-3.7-97619-g0d0c92f4f-gcc-linux/source/tools/ThreadDetector/race_tests/race
+Unloading /lib64/ld-linux-x86-64.so.2
+Unloading [vdso]
+Unloading /lib/x86_64-linux-gnu/libpthread.so.0
+Unloading /lib/x86_64-linux-gnu/libc.so.6
+===============================================
+MyPinTool analysis results: 
+Number of instructions: 0
+Number of basic blocks: 0
+Number of threads: 3
+Count[0]= 190404
+Count[1]= 15724
+Count[2]= 8127
+===============================================

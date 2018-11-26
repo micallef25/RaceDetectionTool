@@ -4,6 +4,9 @@
 
 pthread_mutex_t lock;
 int c = 0;
+int a = 0;
+int racevar;
+int var2;
 
 void *fnC()
 {
@@ -12,6 +15,9 @@ void *fnC()
     for(i=0;i<10;i++)
     {   
         c++;
+        a++;
+        racevar++;
+        var2++;
         printf(" %d", c); 
     }   
    // free(var);

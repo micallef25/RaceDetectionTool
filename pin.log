@@ -1,0 +1,3 @@
+Pin: pin-3.7-97619-0d0c92f4f
+Copyright (c) 2003-2018, Intel Corporation. All rights reserved.
+E:  Unable to load /home/ivyleague-sloth/Documents/Pin/pin-3.7-97619-g0d0c92f4f-gcc-linux/source/tools/ThreadDetector/obj-intel64/MyPinTool.so: dlopen failed: cannot locate symbol "_Z18BeforeThreadCreatemj" referenced by "/home/ivyleague-sloth/Documents/Pin/pin-3.7-97619-g0d0c92f4f-gcc-linux/source/tools/ThreadDetector/obj-intel64/MyPinTool.so"...

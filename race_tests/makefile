@@ -4,11 +4,11 @@ CC = gcc
 #  -g    adds debugging information to the executable file
 #  -Wall turns on most, but not all, compiler warnings
 #  -v Verbose
-CFLAGS  = -g -Wall -v
+CFLAGS  = -g -Wall
 # -pthread support for threads
 LDFLAGS = -lpthread -Wl,-Map=$@.map
 # the build target executable:
-TARGET = race
+TARGET = naiverace
 
 all: $(TARGET)
 

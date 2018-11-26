@@ -19,7 +19,8 @@ UINT64 threadCount = 0;     //total number of threads, including main thread
 UINT64 Low = 0;
 UINT64 High = 0;
 UINT64 Start_addr = 0;
-uint8_t CS[100];
+event_tracker CS[100];
+std::map<THREADID tid,std::string>function_map;
 
 race_issues* list = NULL;
 race_issues** list_head = &list;
@@ -44,21 +45,6 @@ class thread_data_t
 
 // key for accessing TLS storage in the threads. initialized once in main()
 static  TLS_KEY tls_key = INVALID_TLS_KEY;
-
-// Holds instruction count for a single procedure
-typedef struct RtnCount
-{
-    string _name;
-    string _image;
-    ADDRINT _address;
-    RTN _rtn;
-    UINT64 _rtnCount;
-    UINT64 _icount;
-    struct RtnCount * _next;
-} RTN_COUNT;
-
-// Linked list of instruction counts for each routine
-RTN_COUNT * RtnList = 0;
 
 /* ===================================================================== */
 // Command line switches
@@ -123,40 +109,11 @@ VOID ImageUnload(IMG img, VOID *v)
 //     else
 //         return path;
 // }
-
+std::string func_name;
 // // Pin calls this function every time a new rtn is executed
-// VOID Routine(RTN rtn, VOID *v)
+// inline VOID Routine(RTN rtn, VOID *v, THREADID tid)
 // {
-    
-//     // Allocate a counter for this routine
-//     RTN_COUNT * rc = new RTN_COUNT;
-
-//     // The RTN goes away when the image is unloaded, so save it now
-//     // because we need it in the fini
-//     rc->_name = RTN_Name(rtn);
-//     rc->_image = StripPath(IMG_Name(SEC_Img(RTN_Sec(rtn))).c_str());
-//     rc->_address = RTN_Address(rtn);
-//     rc->_icount = 0;
-//     rc->_rtnCount = 0;
-
-//     // Add to list of routines
-//     rc->_next = RtnList;
-//     RtnList = rc;
-            
-//     RTN_Open(rtn);
-            
-//     // Insert a call at the entry point of a routine to increment the call count
-//     //RTN_InsertCall(rtn, IPOINT_BEFORE, (AFUNPTR)docount, IARG_PTR, &(rc->_rtnCount), IARG_END);
-    
-//     // For each instruction of the routine
-//     for (INS ins = RTN_InsHead(rtn); INS_Valid(ins); ins = INS_Next(ins))
-//     {
-//         // Insert a call to docount to increment the instruction counter for this rtn
-//         //INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)docount, IARG_PTR, &(rc->_icount), IARG_END);
-//     }
-
-    
-//     RTN_Close(rtn);
+//   func_name = RTN_Name(rtn);
 // }
 
 // This routine is executed for each image.
@@ -170,7 +127,7 @@ VOID SetupLocks(IMG img, VOID *v)
     {
         // the path can be saved and append .map to the file for later parsing
         *out << "Loading Main exe " << IMG_Name(img) << ", Image id = " << IMG_Id(img) << endl;
-        *out << "Low " << IMG_LowAddress(img) << ", High = " << IMG_HighAddress(img) << " start " << IMG_StartAddress(img) << endl;
+        *out << "PIN_LOW_ADDR " << (void*)IMG_LowAddress(img) << std::endl <<"PIN_HIGH_ADDR " << (void*)IMG_HighAddress(img) << std::endl << " start " << (void*)IMG_StartAddress(img) << endl;
         Low = IMG_LowAddress(img); // store lower address bound
         High = IMG_HighAddress(img); // store higher address bound
         Start_addr = IMG_HighAddress(img);
@@ -252,34 +209,80 @@ VOID SetupLocks(IMG img, VOID *v)
 
         RTN_Close(rtn);
     }
+    rtn = RTN_FindByName(img, "pthread_create");
+    
+    if ( RTN_Valid( rtn ))
+    {
+        RTN_Open(rtn);
+        
+        RTN_InsertCall(rtn, IPOINT_BEFORE, AFUNPTR(BeforeThreadCreate),
+                       IARG_FUNCARG_ENTRYPOINT_VALUE, 0,
+                       IARG_THREAD_ID, IARG_END);
+
+        RTN_Close(rtn);
+    }
+
+    if ( RTN_Valid( rtn ))
+    {
+        RTN_Open(rtn);
+        
+        RTN_InsertCall(rtn, IPOINT_AFTER, AFUNPTR(AfterThreadCreate),
+                    IARG_THREAD_ID,
+                    IARG_END);
+
+        RTN_Close(rtn);
+    }
+
+    rtn = RTN_FindByName(img, "pthread_join");
+    
+    if ( RTN_Valid( rtn ))
+    {
+        RTN_Open(rtn);
+        
+        RTN_InsertCall(rtn, IPOINT_BEFORE, AFUNPTR(BeforeThreadJoin),
+                       IARG_FUNCARG_ENTRYPOINT_VALUE, 0,
+                       IARG_THREAD_ID, IARG_END);
+
+        RTN_Close(rtn);
+    }
+
+    if ( RTN_Valid( rtn ))
+    {
+        RTN_Open(rtn);
+        
+        RTN_InsertCall(rtn, IPOINT_AFTER, AFUNPTR(AfterThreadJoin),
+                    IARG_THREAD_ID,
+                    IARG_END);
+
+        RTN_Close(rtn);
+    }
 // }
 
 }
 
-// // Move from memory to register
-// ADDRINT DoLoad(REG reg, ADDRINT * addr, THREADID threadid)
-// {
-//     //PIN_GetLock(&lock, threadid+1);
-//    //*out << "Emulate loading from addr " << addr << " to " << REG_StringShort(reg) << endl;
-//     ADDRINT value;
-//    // PIN_SafeCopy(&value, addr, sizeof(ADDRINT));
-//      //PIN_ReleaseLock(&lock);
-//     return value;
-// }
+
+VOID FuncCall(VOID * ip, THREADID threadid )
+{
+    //std::cout << "entering new call: " << endl;
+    PIN_GetLock(&lock, threadid+1);
+    if((ADDRINT)ip < High)
+    {
+        std::cout << "thread ["<< threadid <<"] " <<  " ip: " << ip  << endl;
+    }
+    PIN_ReleaseLock(&lock);
+}
+
 
 // Is called for every instruction and instruments reads and writes
 VOID Instruction(INS ins, VOID *v)
 {
-    // Instruments memory accesses using a predicated call, i.e.
-    // the instrumentation is called iff the instruction will actually be executed.
-    //
-    // On the IA-32 and Intel(R) 64 architectures conditional moves and REP 
-    // prefixed instructions appear as predicated instructions in Pin.
+
     UINT32 memOperands = INS_MemoryOperandCount(ins);
 
     // Iterate over each memory operand of the instruction.
     for (UINT32 memOp = 0; memOp < memOperands; memOp++)
     {
+
     // Find the instructions that move a value from memory to a register
     if (INS_Opcode(ins) == XED_ICLASS_MOV &&
         INS_IsMemoryRead(ins) &&
@@ -289,8 +292,6 @@ VOID Instruction(INS ins, VOID *v)
         {
             INS_InsertPredicatedCall(
                 ins, IPOINT_BEFORE, (AFUNPTR)RecordMemRead,
-                IARG_UINT32,
-                REG(INS_OperandReg(ins, 0)),
                 IARG_INST_PTR,
                 IARG_MEMORYOP_EA, memOp,
                 // IARG_MEMORYREAD_EA,
@@ -344,7 +345,7 @@ VOID Trace(TRACE trace, VOID *v)
     // Visit every basic block  in the trace
     for (BBL bbl = TRACE_BblHead(trace); BBL_Valid(bbl); bbl = BBL_Next(bbl))
     {
-        // *out << "basic block " << bbl << endl;/
+         // *out << "basic block " << bbl << endl;
         BBL_InsertCall(bbl, IPOINT_ANYWHERE, (AFUNPTR)docount, IARG_FAST_ANALYSIS_CALL,
                        IARG_UINT32, BBL_NumIns(bbl), IARG_THREAD_ID, IARG_END);
     }
@@ -364,13 +365,18 @@ VOID ThreadStart(THREADID threadIndex, CONTEXT *ctxt, INT32 flags, VOID *v)
 {
      PIN_GetLock(&lock, threadIndex+1);
     threadCount++;
-     PIN_ReleaseLock(&lock);
+
+    //ADDRINT* TakenIP = (ADDRINT*)PIN_GetContextReg( ctxt, REG_INST_PTR );
+    // cout << REG_INST_PTR << endl;
+
     thread_data_t* tdata = new thread_data_t;
     if (PIN_SetThreadData(tls_key, tdata, threadIndex) == FALSE)
     {
+        PIN_ReleaseLock(&lock);
         *out << "PIN_SetThreadData failed" << endl;
         PIN_ExitProcess(1);
     }
+     PIN_ReleaseLock(&lock);
 }
 
 // This function is called when the thread exits
@@ -404,22 +410,9 @@ VOID Fini(INT32 code, VOID *v)
         delete tdata;
     }
     *out <<  "===============================================" << endl;
-    // *out << setw(23) << "Procedure" << " "
-    //         << setw(15) << "Image" << " "
-    //       << setw(18) << "Address" << " "
-    //       << setw(12) << "Calls" << " "
-    //       << setw(12) << "Instructions" << endl;
-
-    // for (RTN_COUNT * rc = RtnList; rc; rc = rc->_next)
-    // {
-    //  //   if (rc->_icount > 0)
-    //         *out << setw(23) << rc->_name << " "
-    //               << setw(15) << rc->_image << " "
-    //               << setw(18) << hex << rc->_address << dec <<" "
-    //               << setw(12) << rc->_rtnCount << " "
-    //               << setw(12) << rc->_icount << endl;
-    // }
-
+    *out << "START_PIN_LIST" << endl;
+    log_issue_queue(list_head,out);
+    *out << "END_PIN_LIST" << endl;
 
 }
 

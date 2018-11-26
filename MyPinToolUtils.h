@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <pthread.h>
+#include <string>
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
@@ -14,6 +15,8 @@
 #define WRITE 0
 #define SAFE 1
 #define UNSAFE 0 
+#define EVENT 1
+#define NO_EVENT 0
 
 VOID BeforeSemWait( ADDRINT size, THREADID threadid );
 
@@ -40,7 +43,7 @@ VOID BeforeMutexUnlock(ADDRINT* lock_ptr, THREADID threadid );
  * @param[in]   addr 		address of address reading from
  * @param[in]   threadId    unique thread id assigned by pin
  */
-VOID RecordMemRead(REG reg,VOID * ip, VOID * addr, THREADID threadid );
+VOID RecordMemRead(VOID * ip, VOID * addr, THREADID threadid );
 
 
 /*This routine is executed before each mutex called.
@@ -62,6 +65,15 @@ VOID AfterMutexLock(THREADID threadid );
  * @param[in]   threadId        unique thread id assigned by pin
  */
 VOID AfterMutexUnlock(THREADID threadid );
+
+
+VOID AfterThreadCreate(THREADID threadid);
+
+VOID AfterThreadJoin(THREADID threadid);
+
+VOID BeforeThreadCreate(ADDRINT* lock_nam  ,THREADID threadid);
+
+VOID BeforeThreadJoin(ADDRINT lock_nam,THREADID threadid);
 
 VOID read_map(ADDRINT addr, THREADID threadid, bool read);
 

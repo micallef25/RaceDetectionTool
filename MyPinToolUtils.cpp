@@ -8,8 +8,9 @@ extern UINT64 Low;
 extern UINT64 High;
 extern UINT64 Start_addr;
 
+extern std::map<THREADID tid,std::string>function_map;
 std::map<ADDRINT, pin_tracker*>race_map;
-extern uint8_t CS[100];
+extern event_tracker CS[100];
 extern race_issues* list;
 extern race_issues** list_head;
 /*
@@ -18,6 +19,36 @@ Case R -> R  -> Safe?
 Case R -> W  -> Unsafe?
 Case W -> R  -> Unsafe?
 */
+
+VOID BeforeThreadCreate(ADDRINT* lock_nam  ,THREADID threadid)
+{
+    PIN_GetLock(&lock, threadid+1);
+    cout << "before pthread create... setting event flag: " << *lock_nam << " " << threadid << endl;
+    CS[threadid].in_event = EVENT;
+    PIN_ReleaseLock(&lock);
+}
+
+VOID AfterThreadCreate(THREADID threadid)
+{
+    PIN_GetLock(&lock, threadid+1);
+    cout << "after create passed parameters: " << threadid << endl;
+    PIN_ReleaseLock(&lock);
+}
+
+VOID BeforeThreadJoin(ADDRINT lock_nam,THREADID threadid)
+{
+    PIN_GetLock(&lock, threadid+1);
+    cout << "before join passed parameters: " << lock_nam << " " << threadid << endl;
+    PIN_ReleaseLock(&lock);
+}
+
+VOID AfterThreadJoin(THREADID threadid)
+{
+    PIN_GetLock(&lock, threadid+1);
+    cout << "after thread join clearing the event flag: " << threadid << endl;
+    CS[threadid].in_event = NO_EVENT;
+    PIN_ReleaseLock(&lock);
+}
 
 // This routine is executed each time sem wait is called.
 VOID BeforeSemWait( ADDRINT size, THREADID threadid )
@@ -40,7 +71,7 @@ VOID AfterMutexLock(THREADID threadid )
 {
     PIN_GetLock(&lock, threadid+1);
     *out << "thread [" <<threadid << "] " << "In CS" << endl;
-    CS[threadid] = SAFE;
+    CS[threadid].in_cs = SAFE;
     PIN_ReleaseLock(&lock);
 }
 
@@ -49,7 +80,7 @@ VOID AfterMutexUnlock(THREADID threadid )
 {
     PIN_GetLock(&lock, threadid+1);
     *out << "thread [" <<threadid << "] " << "left CS" << endl;
-    CS[threadid] = UNSAFE;
+    CS[threadid].in_cs = UNSAFE;
     PIN_ReleaseLock(&lock);
 }
 
@@ -70,7 +101,7 @@ VOID BeforeMutexUnlock(ADDRINT* lock_name, THREADID threadid )
 }
 
 // Print a memory read record
-VOID RecordMemRead(REG reg, VOID * ip, VOID * addr, THREADID threadid )
+VOID RecordMemRead(VOID * ip, VOID * addr, THREADID threadid )
 {
     // fprintf(trace,"%p: R %p\n", ip, addr);
     // pin_tracker* read_track;
@@ -135,6 +166,9 @@ VOID read_map(ADDRINT addr, THREADID threadid, bool read)
     pin_tracker* write_track = NULL;
     int safe=UNSAFE;
 
+    /*
+    * check if we have seen this address before if we have not create a new entry
+    */ 
     if ( got == race_map.end() )
     {
         *out << "address not found: " << addr << endl;
@@ -143,16 +177,22 @@ VOID read_map(ADDRINT addr, THREADID threadid, bool read)
         write_track->read = false;
         write_track->shared_mem = false; 
         race_map[(ADDRINT)addr] = write_track;
+
     }
+    /*
+    * we have seen the address so lets analyze
+    */
     else
     {
+        /*
+        * log the event
+        */
         *out << "thread [" << got->second->threadid << "] ";
         if(got->second->read)
             *out << "is reading: " << got->first << endl;
         else
             *out << "is writing: " << got->first << endl;
 
-        // *out << "shared access " << (got->second->shared_mem ? " Yes" : "No") << endl;
         // if we have shared memory we need to check for a data race
         if(got->second->shared_mem == true)
         {
@@ -162,36 +202,65 @@ VOID read_map(ADDRINT addr, THREADID threadid, bool read)
         // if this is the first instance of a different thread accessing the memory set to shared and check for a race
         else if(got->second->threadid != threadid)
         {
-            printf("id else  [%d], [%d]\n",threadid, got->second->threadid);
+            //printf("id else  [%d], [%d]\n",threadid, got->second->threadid);
             got->second->shared_mem = true;
             safe = analyze_map(got->second,read);
-            std::cout << "SHARED " << std::endl;
-            std::cout << "safe: " << safe <<std::endl;
-            printf("shared\n");
         }
         else
             safe = SAFE; 
 
-        if(CS[threadid] == UNSAFE && safe == UNSAFE)
+        // if the last thread that modified created a sync event check it
+        // ie fork join 
+        // the list contains all mem addresses written to at the time
+        // if we are writing to a variable in an event setup write to the event list
+        if( CS[threadid].in_event == EVENT )
         {
-            std::cout << "RACE CONDITION DETECTED ERROR ERROR WTF!!!!!"  << endl;
-            printf("id unsafe [%d], [%d]\n",threadid, got->second->threadid);
+            add_to_event(&CS[threadid].event_addrs,addr);
+            std::cout << "adding to event " << std::endl;
+        }
+        std::cout << threadid << " thread id: " << got->second->threadid << " " << addr << std::endl;
+
+        // check if last thread created an event
+        // if there is an event this list contains only addresses written to
+        // AFTER the event ie AFTER a FORK or pthread_create
+        if( CS[got->second->threadid].in_event == EVENT )
+        {
+            // std::cout << "checking event quue " << std::endl;
+            // if list contains the address you are lookng for its unsafe
+            if(contains_event(&CS[got->second->threadid].event_addrs,addr))
+            {
+                // std::cout << "contains event address " << std::endl;
+                safe = UNSAFE;
+            }
+            else{
+                // std::cout << "does not contain " <<std::endl;
+                safe = SAFE;
+            }
+        }
+        //if the thread doe snot have a lock acquired and we deem this entry as unsafe add it to our issue list
+        if(CS[threadid].in_cs == UNSAFE && safe == UNSAFE && got->second->threadid != threadid)
+        {
+
+            std::cout << "adding to race list " << addr << " " << threadid << " " << got->second->threadid<< std::endl;
             if(!contains(list_head,(ADDRINT*)got->first))
                 add_to_effected(list_head,(void*)addr,got->second->threadid, threadid);
-            print_issue_queue(list_head);
+            //print_issue_queue(list_head);
             got->second->threadid = threadid;
         }
 
-        //got->second->threadid = threadid;
+        // set read or write
         got->second->read = read;
     }
 
 
 }
 
+/*
+* deallocates all the pointers allocated on the heap
+*/
 VOID clean_map()
 {
-      // show content:
+
   for (std::map<ADDRINT,pin_tracker*>::iterator it=race_map.begin(); it!=race_map.end(); ++it)
     delete it->second;
 
