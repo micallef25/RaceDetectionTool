@@ -5,15 +5,15 @@ Archive member included to satisfy reference by file (symbol)
 
 As-needed library included to satisfy reference by file (symbol)
 
-libpthread.so.0               /tmp/ccHtRjdl.o (pthread_mutex_destroy@@GLIBC_2.2.5)
-libc.so.6                     /tmp/ccHtRjdl.o (puts@@GLIBC_2.2.5)
+libpthread.so.0               /tmp/ccEgiEuu.o (pthread_mutex_destroy@@GLIBC_2.2.5)
+libc.so.6                     /tmp/ccEgiEuu.o (puts@@GLIBC_2.2.5)
 
 Allocating common symbols
 Common symbol       size              file
 
-var2                0x4               /tmp/ccHtRjdl.o
-lock                0x28              /tmp/ccHtRjdl.o
-racevar             0x4               /tmp/ccHtRjdl.o
+var2                0x4               /tmp/ccEgiEuu.o
+lock                0x28              /tmp/ccEgiEuu.o
+racevar             0x4               /tmp/ccEgiEuu.o
 
 Discarded input sections
 
@@ -23,63 +23,8 @@ Discarded input sections
                 0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o
  .note.GNU-stack
                 0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/7/crtbegin.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
- .group         0x0000000000000000        0x8 /tmp/ccHtRjdl.o
  .note.GNU-stack
-                0x0000000000000000        0x0 /tmp/ccHtRjdl.o
+                0x0000000000000000        0x0 /tmp/ccEgiEuu.o
  .note.GNU-stack
                 0x0000000000000000        0x0 /usr/lib/x86_64-linux-gnu/libc_nonshared.a(elf-init.oS)
  .note.GNU-stack
@@ -97,7 +42,7 @@ Linker script and memory map
 LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crt1.o
 LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o
 LOAD /usr/lib/gcc/x86_64-linux-gnu/7/crtbegin.o
-LOAD /tmp/ccHtRjdl.o
+LOAD /tmp/ccEgiEuu.o
 LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/libpthread.so
 START GROUP
 LOAD /lib/x86_64-linux-gnu/libpthread.so.0
@@ -237,10 +182,10 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  .text          0x000000000040073a        0x0 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o
  *fill*         0x000000000040073a        0x6 
  .text          0x0000000000400740       0xa7 /usr/lib/gcc/x86_64-linux-gnu/7/crtbegin.o
- .text          0x00000000004007e7      0x170 /tmp/ccHtRjdl.o
+ .text          0x00000000004007e7      0x173 /tmp/ccEgiEuu.o
                 0x00000000004007e7                fnC
-                0x0000000000400858                main
- *fill*         0x0000000000400957        0x9 
+                0x000000000040085b                main
+ *fill*         0x000000000040095a        0x6 
  .text          0x0000000000400960       0x72 /usr/lib/x86_64-linux-gnu/libc_nonshared.a(elf-init.oS)
                 0x0000000000400960                __libc_csu_init
                 0x00000000004009d0                __libc_csu_fini
@@ -261,7 +206,7 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  *(.rodata .rodata.* .gnu.linkonce.r.*)
  .rodata.cst4   0x00000000004009e0        0x4 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crt1.o
                 0x00000000004009e0                _IO_stdin_used
- .rodata        0x00000000004009e4       0x34 /tmp/ccHtRjdl.o
+ .rodata        0x00000000004009e4       0x34 /tmp/ccEgiEuu.o
 
 .rodata1
  *(.rodata1)
@@ -276,7 +221,7 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  *(.eh_frame)
  .eh_frame      0x0000000000400a58       0x30 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crt1.o
  .eh_frame      0x0000000000400a88       0x40 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crt1.o
- .eh_frame      0x0000000000400ac8       0x40 /tmp/ccHtRjdl.o
+ .eh_frame      0x0000000000400ac8       0x40 /tmp/ccEgiEuu.o
                                          0x58 (size before relaxing)
  .eh_frame      0x0000000000400b08       0x60 /usr/lib/x86_64-linux-gnu/libc_nonshared.a(elf-init.oS)
                                          0x78 (size before relaxing)
@@ -380,7 +325,7 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  *fill*         0x0000000000601064        0x4 
  .data          0x0000000000601068        0x8 /usr/lib/gcc/x86_64-linux-gnu/7/crtbegin.o
                 0x0000000000601068                __dso_handle
- .data          0x0000000000601070        0x0 /tmp/ccHtRjdl.o
+ .data          0x0000000000601070        0x0 /tmp/ccEgiEuu.o
  .data          0x0000000000601070        0x0 /usr/lib/x86_64-linux-gnu/libc_nonshared.a(elf-init.oS)
  .data          0x0000000000601070        0x0 /usr/lib/gcc/x86_64-linux-gnu/7/crtend.o
  .data          0x0000000000601070        0x0 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
@@ -407,7 +352,7 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  .bss           0x0000000000601080        0x0 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o
  .bss           0x0000000000601080        0x1 /usr/lib/gcc/x86_64-linux-gnu/7/crtbegin.o
  *fill*         0x0000000000601081        0x3 
- .bss           0x0000000000601084        0x8 /tmp/ccHtRjdl.o
+ .bss           0x0000000000601084        0x8 /tmp/ccEgiEuu.o
                 0x0000000000601084                c
                 0x0000000000601088                a
  .bss           0x000000000060108c        0x0 /usr/lib/x86_64-linux-gnu/libc_nonshared.a(elf-init.oS)
@@ -415,7 +360,7 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  .bss           0x000000000060108c        0x0 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  *(COMMON)
  *fill*         0x000000000060108c       0x14 
- COMMON         0x00000000006010a0       0x4c /tmp/ccHtRjdl.o
+ COMMON         0x00000000006010a0       0x4c /tmp/ccEgiEuu.o
                 0x00000000006010a0                var2
                 0x00000000006010c0                lock
                 0x00000000006010e8                racevar
@@ -462,7 +407,7 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  *(.comment)
  .comment       0x0000000000000000       0x2a /usr/lib/gcc/x86_64-linux-gnu/7/crtbegin.o
                                          0x2b (size before relaxing)
- .comment       0x000000000000002a       0x2b /tmp/ccHtRjdl.o
+ .comment       0x000000000000002a       0x2b /tmp/ccEgiEuu.o
  .comment       0x000000000000002a       0x2b /usr/lib/gcc/x86_64-linux-gnu/7/crtend.o
 
 .debug
@@ -480,30 +425,30 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
 .debug_aranges  0x0000000000000000       0x30
  *(.debug_aranges)
  .debug_aranges
-                0x0000000000000000       0x30 /tmp/ccHtRjdl.o
+                0x0000000000000000       0x30 /tmp/ccEgiEuu.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x0000000000000000      0x541
+.debug_info     0x0000000000000000      0x53d
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x0000000000000000      0x541 /tmp/ccHtRjdl.o
+ .debug_info    0x0000000000000000      0x53d /tmp/ccEgiEuu.o
 
-.debug_abbrev   0x0000000000000000      0x148
+.debug_abbrev   0x0000000000000000      0x145
  *(.debug_abbrev)
- .debug_abbrev  0x0000000000000000      0x148 /tmp/ccHtRjdl.o
+ .debug_abbrev  0x0000000000000000      0x145 /tmp/ccEgiEuu.o
 
-.debug_line     0x0000000000000000      0x319
+.debug_line     0x0000000000000000      0x13c
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x0000000000000000      0x319 /tmp/ccHtRjdl.o
+ .debug_line    0x0000000000000000      0x13c /tmp/ccEgiEuu.o
 
 .debug_frame
  *(.debug_frame)
 
-.debug_str      0x0000000000000000     0x6fb3
+.debug_str      0x0000000000000000      0x3c6
  *(.debug_str)
- .debug_str     0x0000000000000000     0x6fb3 /tmp/ccHtRjdl.o
-                                       0x70fc (size before relaxing)
+ .debug_str     0x0000000000000000      0x3c6 /tmp/ccEgiEuu.o
+                                        0x431 (size before relaxing)
 
 .debug_loc
  *(.debug_loc)
@@ -529,64 +474,8 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
 .debug_ranges
  *(.debug_ranges)
 
-.debug_macro    0x0000000000000000     0x1a70
+.debug_macro
  *(.debug_macro)
- .debug_macro   0x0000000000000000      0x2bc /tmp/ccHtRjdl.o
- .debug_macro   0x00000000000002bc      0x7f0 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000000aac       0x22 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000000ace      0x179 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000000c47      0x16f /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000000db6       0x16 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000000dcc       0x35 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000000e01       0x58 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000000e59       0x10 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000000e69       0x97 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000000f00       0x5e /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000000f5e       0xe8 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000001046       0x2e /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000001074       0x16 /tmp/ccHtRjdl.o
- .debug_macro   0x000000000000108a       0x20 /tmp/ccHtRjdl.o
- .debug_macro   0x00000000000010aa       0x1e /tmp/ccHtRjdl.o
- .debug_macro   0x00000000000010c8       0x28 /tmp/ccHtRjdl.o
- .debug_macro   0x00000000000010f0       0x58 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000001148       0x10 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000001158      0x1c2 /tmp/ccHtRjdl.o
- .debug_macro   0x000000000000131a       0x4a /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000001364       0x28 /tmp/ccHtRjdl.o
- .debug_macro   0x000000000000138c       0x27 /tmp/ccHtRjdl.o
- .debug_macro   0x00000000000013b3       0x16 /tmp/ccHtRjdl.o
- .debug_macro   0x00000000000013c9       0x97 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000001460       0x52 /tmp/ccHtRjdl.o
- .debug_macro   0x00000000000014b2       0x4c /tmp/ccHtRjdl.o
- .debug_macro   0x00000000000014fe       0x1c /tmp/ccHtRjdl.o
- .debug_macro   0x000000000000151a       0x28 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000001542       0x10 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000001552       0x4c /tmp/ccHtRjdl.o
- .debug_macro   0x000000000000159e       0x22 /tmp/ccHtRjdl.o
- .debug_macro   0x00000000000015c0       0x62 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000001622       0x67 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000001689       0x3a /tmp/ccHtRjdl.o
- .debug_macro   0x00000000000016c3       0x12 /tmp/ccHtRjdl.o
- .debug_macro   0x00000000000016d5       0x20 /tmp/ccHtRjdl.o
- .debug_macro   0x00000000000016f5       0x22 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000001717       0x10 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000001727       0x16 /tmp/ccHtRjdl.o
- .debug_macro   0x000000000000173d       0x28 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000001765       0x10 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000001775       0x4c /tmp/ccHtRjdl.o
- .debug_macro   0x00000000000017c1       0x1c /tmp/ccHtRjdl.o
- .debug_macro   0x00000000000017dd       0x20 /tmp/ccHtRjdl.o
- .debug_macro   0x00000000000017fd       0x5a /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000001857       0x10 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000001867       0x10 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000001877       0x10 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000001887       0x10 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000001897       0x22 /tmp/ccHtRjdl.o
- .debug_macro   0x00000000000018b9       0x86 /tmp/ccHtRjdl.o
- .debug_macro   0x000000000000193f       0x16 /tmp/ccHtRjdl.o
- .debug_macro   0x0000000000001955       0x5e /tmp/ccHtRjdl.o
- .debug_macro   0x00000000000019b3       0x29 /tmp/ccHtRjdl.o
- .debug_macro   0x00000000000019dc       0x94 /tmp/ccHtRjdl.o
 
 .gnu.attributes
  *(.gnu.attributes)

@@ -20,7 +20,7 @@ UINT64 Low = 0;
 UINT64 High = 0;
 UINT64 Start_addr = 0;
 event_tracker CS[100];
-std::map<THREADID tid,std::string>function_map;
+//std::map<THREADID tid,std::string>function_map;
 
 race_issues* list = NULL;
 race_issues** list_head = &list;
@@ -217,6 +217,7 @@ VOID SetupLocks(IMG img, VOID *v)
         
         RTN_InsertCall(rtn, IPOINT_BEFORE, AFUNPTR(BeforeThreadCreate),
                        IARG_FUNCARG_ENTRYPOINT_VALUE, 0,
+                       IARG_FUNCARG_ENTRYPOINT_VALUE, 2,
                        IARG_THREAD_ID, IARG_END);
 
         RTN_Close(rtn);
@@ -462,7 +463,7 @@ int main(int argc, char *argv[])
         IMG_AddUnloadFunction(ImageUnload, 0);
 
         // Register function to be called to instrument traces
-        TRACE_AddInstrumentFunction(Trace, NULL);
+        //TRACE_AddInstrumentFunction(Trace, NULL);
 
         // Register function to be called for every thread before it starts running
         PIN_AddThreadStartFunction(ThreadStart, NULL);

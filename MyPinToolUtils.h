@@ -71,7 +71,7 @@ VOID AfterThreadCreate(THREADID threadid);
 
 VOID AfterThreadJoin(THREADID threadid);
 
-VOID BeforeThreadCreate(ADDRINT* lock_nam  ,THREADID threadid);
+VOID BeforeThreadCreate(ADDRINT* lock_nam  ,void* strt_rtn,THREADID threadid);
 
 VOID BeforeThreadJoin(ADDRINT lock_nam,THREADID threadid);
 

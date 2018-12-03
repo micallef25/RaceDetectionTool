@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from parser import parse_map
 from parser import get_addrs
+import sys
 
 app = Flask(__name__)
 
@@ -14,11 +15,12 @@ app = Flask(__name__)
 def results():
 	rlist = []
 	addrlist = []
-	rlist = parse_map()
-	addrlist = get_addrs()
+
+	rlist = parse_map(str(sys.argv[1]))
+	addrlist = get_addrs(str(sys.argv[1]))
 	if not rlist:
 		return render_template('empty_list.html')
-	return render_template('show_list.html', data=rlist, data2=addrlist)
+	return render_template('show_list.html', data=rlist)
 
 @app.route("/")
 def index():

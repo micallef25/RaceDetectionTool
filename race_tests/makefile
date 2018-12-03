@@ -8,7 +8,7 @@ CFLAGS  = -g -Wall
 # -pthread support for threads
 LDFLAGS = -lpthread -Wl,-Map=$@.map
 # the build target executable:
-TARGET = naiverace
+TARGET = unsaferace
 
 all: $(TARGET)
 

@@ -73,8 +73,9 @@ def get_function(high_addr,low_addr,file,List):
 
 
 #def fnc_parse(text,high,low):
-def get_addrs():
-	file_name = "naiverace"
+def get_addrs(f_name):
+	#file_name = "naiverace"
+	file_name = f_name
 	path = "race_tests/"
 	inputfile = file_name
 	inputfile = path + file_name + ".map"
@@ -93,14 +94,16 @@ def get_addrs():
 	low_addr = low_addr[13:]
 
 	get_function(high_addr,low_addr,inputfile,sortedlist)
+	
 	sortedlist.sort()
 	print sortedlist	
 	inputfile.close()
 	mapfile.close()
 	return templist
 
-def parse_map():
-	file_name = "naiverace"
+def parse_map(f_name):
+	file_name = f_name
+	#file_name = "naiverace"
 	path = "race_tests/"
 	inputfile = file_name
 	inputfile = path + file_name + ".map"

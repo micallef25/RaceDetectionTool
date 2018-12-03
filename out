@@ -1,150 +1,15 @@
-Loading /home/ivyleague-sloth/Documents/Pin/pin-3.7-97619-g0d0c92f4f-gcc-linux/source/tools/ThreadDetector/race_tests/saferace, Image id = 1
-Loading Main exe /home/ivyleague-sloth/Documents/Pin/pin-3.7-97619-g0d0c92f4f-gcc-linux/source/tools/ThreadDetector/race_tests/saferace, Image id = 1
+Loading /home/ivyleague-sloth/Documents/Pin/pin-3.7-97619-g0d0c92f4f-gcc-linux/source/tools/ThreadDetector/race_tests/naiverace, Image id = 1
+Loading Main exe /home/ivyleague-sloth/Documents/Pin/pin-3.7-97619-g0d0c92f4f-gcc-linux/source/tools/ThreadDetector/race_tests/naiverace, Image id = 1
 PIN_LOW_ADDR 0x0000000000400000
-PIN_HIGH_ADDR 0x0000000000400ba3
- start 0x00007f68b2477000
+PIN_HIGH_ADDR 0x0000000000400bbb
+ start 0x00007f1d30108000
 Loading /lib64/ld-linux-x86-64.so.2, Image id = 2
 Loading [vdso], Image id = 3
 Loading /lib/x86_64-linux-gnu/libpthread.so.0, Image id = 4
 Loading /lib/x86_64-linux-gnu/libc.so.6, Image id = 5
-address not found: 6295544
-thread [0] R 0x0000000000600ff8 ip: 0x0000000000400644
-address not found: 140087315838760
-thread [0] R 0x00007f689eb2b728 ip: 0x0000000000400877
-thread [0] requesting enter CS[0x00007f68b2675948]
-thread [0] In CS
-thread [0] request exiting CS[0x00007f68b2675948]
-thread [0] left CS
-address not found: 6295684
-thread [1] R 0x0000000000601084 ip: 0x000000000040083c
-thread [1] W 0x0000000000601084 ip: 0x0000000000400845
-thread [1] is writing: 6295684
-thread [1] is writing: 6295684
-thread [1] R 0x0000000000601084 ip: 0x000000000040084b
-address not found: 6295688
-thread [2] R 0x0000000000601088 ip: 0x00000000004007f8
-thread [2] W 0x0000000000601088 ip: 0x0000000000400801
-thread [2] is writing: 6295688
-thread [2] is writing: 6295688
-thread [2] R 0x0000000000601088 ip: 0x0000000000400807
-thread [1] is reading: 6295684
-thread [1] R 0x0000000000601084 ip: 0x000000000040083c
-thread [1] W 0x0000000000601084 ip: 0x0000000000400845
-thread [1] is reading: 6295684
-thread [1] is writing: 6295684
-thread [1] R 0x0000000000601084 ip: 0x000000000040084b
-thread [1] is reading: 6295684
-thread [1] R 0x0000000000601084 ip: 0x000000000040083c
-thread [1] W 0x0000000000601084 ip: 0x0000000000400845
-thread [1] is reading: 6295684
-thread [1] is writing: 6295684
-thread [1] R 0x0000000000601084 ip: 0x000000000040084b
-thread [1] is reading: 6295684
-thread [1] R 0x0000000000601084 ip: 0x000000000040083c
-thread [1] W 0x0000000000601084 ip: 0x0000000000400845
-thread [1] is reading: 6295684
-thread [1] is writing: 6295684
-thread [1] R 0x0000000000601084 ip: 0x000000000040084b
-thread [1] is reading: 6295684
-thread [1] R 0x0000000000601084 ip: 0x000000000040083c
-thread [1] W 0x0000000000601084 ip: 0x0000000000400845
-thread [1] is reading: 6295684
-thread [1] is writing: 6295684
-thread [1] R 0x0000000000601084 ip: 0x000000000040084b
-thread [1] is reading: 6295684
-thread [1] R 0x0000000000601084 ip: 0x000000000040083c
-thread [1] W 0x0000000000601084 ip: 0x0000000000400845
-thread [1] is reading: 6295684
-thread [1] is writing: 6295684
-thread [1] R 0x0000000000601084 ip: 0x000000000040084b
-thread [1] is reading: 6295684
-thread [1] R 0x0000000000601084 ip: 0x000000000040083c
-thread [1] W 0x0000000000601084 ip: 0x0000000000400845
-thread [1] is reading: 6295684
-thread [1] is writing: 6295684
-thread [1] R 0x0000000000601084 ip: 0x000000000040084b
-thread [1] is reading: 6295684
-thread [1] R 0x0000000000601084 ip: 0x000000000040083c
-thread [1] W 0x0000000000601084 ip: 0x0000000000400845
-thread [1] is reading: 6295684
-thread [1] is writing: 6295684
-thread [1] R 0x0000000000601084 ip: 0x000000000040084b
-thread [1] is reading: 6295684
-thread [1] R 0x0000000000601084 ip: 0x000000000040083c
-thread [1] W 0x0000000000601084 ip: 0x0000000000400845
-thread [1] is reading: 6295684
-thread [1] is writing: 6295684
-thread [1] R 0x0000000000601084 ip: 0x000000000040084b
-thread [1] is reading: 6295684
-thread [1] R 0x0000000000601084 ip: 0x000000000040083c
-thread [1] W 0x0000000000601084 ip: 0x0000000000400845
-thread [1] is reading: 6295684
-thread [1] is writing: 6295684
-thread [1] R 0x0000000000601084 ip: 0x000000000040084b
-thread [2] is reading: 6295688
-thread [2] R 0x0000000000601088 ip: 0x00000000004007f8
-thread [2] W 0x0000000000601088 ip: 0x0000000000400801
-thread [2] is reading: 6295688
-thread [2] is writing: 6295688
-thread [2] R 0x0000000000601088 ip: 0x0000000000400807
-thread [2] is reading: 6295688
-thread [2] R 0x0000000000601088 ip: 0x00000000004007f8
-thread [2] W 0x0000000000601088 ip: 0x0000000000400801
-thread [2] is reading: 6295688
-thread [2] is writing: 6295688
-thread [2] R 0x0000000000601088 ip: 0x0000000000400807
-thread [2] is reading: 6295688
-thread [2] R 0x0000000000601088 ip: 0x00000000004007f8
-thread [2] W 0x0000000000601088 ip: 0x0000000000400801
-thread [2] is reading: 6295688
-thread [2] is writing: 6295688
-thread [2] R 0x0000000000601088 ip: 0x0000000000400807
-thread [2] is reading: 6295688
-thread [2] R 0x0000000000601088 ip: 0x00000000004007f8
-thread [2] W 0x0000000000601088 ip: 0x0000000000400801
-thread [2] is reading: 6295688
-thread [2] is writing: 6295688
-thread [2] R 0x0000000000601088 ip: 0x0000000000400807
-thread [2] is reading: 6295688
-thread [2] R 0x0000000000601088 ip: 0x00000000004007f8
-thread [2] W 0x0000000000601088 ip: 0x0000000000400801
-thread [2] is reading: 6295688
-thread [2] is writing: 6295688
-thread [2] R 0x0000000000601088 ip: 0x0000000000400807
-thread [2] is reading: 6295688
-thread [2] R 0x0000000000601088 ip: 0x00000000004007f8
-thread [2] W 0x0000000000601088 ip: 0x0000000000400801
-thread [2] is reading: 6295688
-thread [2] is writing: 6295688
-thread [2] R 0x0000000000601088 ip: 0x0000000000400807
-thread [2] is reading: 6295688
-thread [2] R 0x0000000000601088 ip: 0x00000000004007f8
-thread [2] W 0x0000000000601088 ip: 0x0000000000400801
-thread [2] is reading: 6295688
-thread [2] is writing: 6295688
-thread [2] R 0x0000000000601088 ip: 0x0000000000400807
-thread [2] is reading: 6295688
-thread [2] R 0x0000000000601088 ip: 0x00000000004007f8
-thread [2] W 0x0000000000601088 ip: 0x0000000000400801
-thread [2] is reading: 6295688
-thread [2] is writing: 6295688
-thread [2] R 0x0000000000601088 ip: 0x0000000000400807
-thread [2] is reading: 6295688
-thread [2] R 0x0000000000601088 ip: 0x00000000004007f8
-thread [2] W 0x0000000000601088 ip: 0x0000000000400801
-thread [2] is reading: 6295688
-thread [2] is writing: 6295688
-thread [2] R 0x0000000000601088 ip: 0x0000000000400807
-Count[1] = 13308
-Count[2] = 8389
-thread [0] requesting enter CS[0x00007f68b2675948]
-thread [0] In CS
-thread [0] request exiting CS[0x00007f68b2675948]
-thread [0] left CS
-thread [0] W 0x0000000000601080 ip: 0x00000000004007c2
-address not found: 6295680
-Count[0] = 191042
-Unloading /home/ivyleague-sloth/Documents/Pin/pin-3.7-97619-g0d0c92f4f-gcc-linux/source/tools/ThreadDetector/race_tests/saferace
+Count[1] = 0
+Count[0] = 0
+Unloading /home/ivyleague-sloth/Documents/Pin/pin-3.7-97619-g0d0c92f4f-gcc-linux/source/tools/ThreadDetector/race_tests/naiverace
 Unloading /lib64/ld-linux-x86-64.so.2
 Unloading [vdso]
 Unloading /lib/x86_64-linux-gnu/libpthread.so.0
@@ -153,10 +18,11 @@ Unloading /lib/x86_64-linux-gnu/libc.so.6
 MyPinTool analysis results: 
 Number of instructions: 0
 Number of basic blocks: 0
-Number of threads: 3
-Count[0]= 191042
-Count[1]= 13308
-Count[2]= 8389
+Number of threads: 2
+Count[0]= 0
+Count[1]= 0
 ===============================================
 START_PIN_LIST
+0x0000000000601084
+0x00000000006010e8
 END_PIN_LIST
