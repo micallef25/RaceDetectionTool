@@ -12,7 +12,7 @@ void *fnC()
 {
     int i;
     //char* var = malloc(sizeof(char));
-    for(i=0;i<100000;i++)
+    for(i=0;i<1000000;i++)
     {   
         c++;
         a++;

@@ -1,15 +1,16 @@
-Loading /home/ivyleague-sloth/Documents/Pin/pin-3.7-97619-g0d0c92f4f-gcc-linux/source/tools/ThreadDetector/race_tests/naiverace, Image id = 1
-Loading Main exe /home/ivyleague-sloth/Documents/Pin/pin-3.7-97619-g0d0c92f4f-gcc-linux/source/tools/ThreadDetector/race_tests/naiverace, Image id = 1
+Loading /home/ivyleague-sloth/Documents/Pin/pin-3.7-97619-g0d0c92f4f-gcc-linux/source/tools/ThreadDetector/race_tests/saferace, Image id = 1
+Loading Main exe /home/ivyleague-sloth/Documents/Pin/pin-3.7-97619-g0d0c92f4f-gcc-linux/source/tools/ThreadDetector/race_tests/saferace, Image id = 1
 PIN_LOW_ADDR 0x0000000000400000
-PIN_HIGH_ADDR 0x0000000000400bbb
- start 0x00007f1d30108000
+PIN_HIGH_ADDR 0x0000000000400ba3
+ start 0x00007f8648fb5000
 Loading /lib64/ld-linux-x86-64.so.2, Image id = 2
 Loading [vdso], Image id = 3
 Loading /lib/x86_64-linux-gnu/libpthread.so.0, Image id = 4
 Loading /lib/x86_64-linux-gnu/libc.so.6, Image id = 5
+Count[2] = 0
 Count[1] = 0
 Count[0] = 0
-Unloading /home/ivyleague-sloth/Documents/Pin/pin-3.7-97619-g0d0c92f4f-gcc-linux/source/tools/ThreadDetector/race_tests/naiverace
+Unloading /home/ivyleague-sloth/Documents/Pin/pin-3.7-97619-g0d0c92f4f-gcc-linux/source/tools/ThreadDetector/race_tests/saferace
 Unloading /lib64/ld-linux-x86-64.so.2
 Unloading [vdso]
 Unloading /lib/x86_64-linux-gnu/libpthread.so.0
@@ -18,11 +19,10 @@ Unloading /lib/x86_64-linux-gnu/libc.so.6
 MyPinTool analysis results: 
 Number of instructions: 0
 Number of basic blocks: 0
-Number of threads: 2
+Number of threads: 3
 Count[0]= 0
 Count[1]= 0
+Count[2]= 0
 ===============================================
 START_PIN_LIST
-0x0000000000601084
-0x00000000006010e8
 END_PIN_LIST

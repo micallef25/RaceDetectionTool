@@ -5,15 +5,15 @@ Archive member included to satisfy reference by file (symbol)
 
 As-needed library included to satisfy reference by file (symbol)
 
-libpthread.so.0               /tmp/ccEgiEuu.o (pthread_mutex_destroy@@GLIBC_2.2.5)
-libc.so.6                     /tmp/ccEgiEuu.o (puts@@GLIBC_2.2.5)
+libpthread.so.0               /tmp/ccfGyjUC.o (pthread_mutex_destroy@@GLIBC_2.2.5)
+libc.so.6                     /tmp/ccfGyjUC.o (puts@@GLIBC_2.2.5)
 
 Allocating common symbols
 Common symbol       size              file
 
-var2                0x4               /tmp/ccEgiEuu.o
-lock                0x28              /tmp/ccEgiEuu.o
-racevar             0x4               /tmp/ccEgiEuu.o
+var2                0x4               /tmp/ccfGyjUC.o
+lock                0x28              /tmp/ccfGyjUC.o
+racevar             0x4               /tmp/ccfGyjUC.o
 
 Discarded input sections
 
@@ -24,7 +24,7 @@ Discarded input sections
  .note.GNU-stack
                 0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/7/crtbegin.o
  .note.GNU-stack
-                0x0000000000000000        0x0 /tmp/ccEgiEuu.o
+                0x0000000000000000        0x0 /tmp/ccfGyjUC.o
  .note.GNU-stack
                 0x0000000000000000        0x0 /usr/lib/x86_64-linux-gnu/libc_nonshared.a(elf-init.oS)
  .note.GNU-stack
@@ -42,7 +42,7 @@ Linker script and memory map
 LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crt1.o
 LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o
 LOAD /usr/lib/gcc/x86_64-linux-gnu/7/crtbegin.o
-LOAD /tmp/ccEgiEuu.o
+LOAD /tmp/ccfGyjUC.o
 LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/libpthread.so
 START GROUP
 LOAD /lib/x86_64-linux-gnu/libpthread.so.0
@@ -182,7 +182,7 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  .text          0x000000000040073a        0x0 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o
  *fill*         0x000000000040073a        0x6 
  .text          0x0000000000400740       0xa7 /usr/lib/gcc/x86_64-linux-gnu/7/crtbegin.o
- .text          0x00000000004007e7      0x173 /tmp/ccEgiEuu.o
+ .text          0x00000000004007e7      0x173 /tmp/ccfGyjUC.o
                 0x00000000004007e7                fnC
                 0x000000000040085b                main
  *fill*         0x000000000040095a        0x6 
@@ -206,7 +206,7 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  *(.rodata .rodata.* .gnu.linkonce.r.*)
  .rodata.cst4   0x00000000004009e0        0x4 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crt1.o
                 0x00000000004009e0                _IO_stdin_used
- .rodata        0x00000000004009e4       0x34 /tmp/ccEgiEuu.o
+ .rodata        0x00000000004009e4       0x34 /tmp/ccfGyjUC.o
 
 .rodata1
  *(.rodata1)
@@ -221,7 +221,7 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  *(.eh_frame)
  .eh_frame      0x0000000000400a58       0x30 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crt1.o
  .eh_frame      0x0000000000400a88       0x40 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crt1.o
- .eh_frame      0x0000000000400ac8       0x40 /tmp/ccEgiEuu.o
+ .eh_frame      0x0000000000400ac8       0x40 /tmp/ccfGyjUC.o
                                          0x58 (size before relaxing)
  .eh_frame      0x0000000000400b08       0x60 /usr/lib/x86_64-linux-gnu/libc_nonshared.a(elf-init.oS)
                                          0x78 (size before relaxing)
@@ -325,7 +325,7 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  *fill*         0x0000000000601064        0x4 
  .data          0x0000000000601068        0x8 /usr/lib/gcc/x86_64-linux-gnu/7/crtbegin.o
                 0x0000000000601068                __dso_handle
- .data          0x0000000000601070        0x0 /tmp/ccEgiEuu.o
+ .data          0x0000000000601070        0x0 /tmp/ccfGyjUC.o
  .data          0x0000000000601070        0x0 /usr/lib/x86_64-linux-gnu/libc_nonshared.a(elf-init.oS)
  .data          0x0000000000601070        0x0 /usr/lib/gcc/x86_64-linux-gnu/7/crtend.o
  .data          0x0000000000601070        0x0 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
@@ -352,7 +352,7 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  .bss           0x0000000000601080        0x0 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o
  .bss           0x0000000000601080        0x1 /usr/lib/gcc/x86_64-linux-gnu/7/crtbegin.o
  *fill*         0x0000000000601081        0x3 
- .bss           0x0000000000601084        0x8 /tmp/ccEgiEuu.o
+ .bss           0x0000000000601084        0x8 /tmp/ccfGyjUC.o
                 0x0000000000601084                c
                 0x0000000000601088                a
  .bss           0x000000000060108c        0x0 /usr/lib/x86_64-linux-gnu/libc_nonshared.a(elf-init.oS)
@@ -360,7 +360,7 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  .bss           0x000000000060108c        0x0 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  *(COMMON)
  *fill*         0x000000000060108c       0x14 
- COMMON         0x00000000006010a0       0x4c /tmp/ccEgiEuu.o
+ COMMON         0x00000000006010a0       0x4c /tmp/ccfGyjUC.o
                 0x00000000006010a0                var2
                 0x00000000006010c0                lock
                 0x00000000006010e8                racevar
@@ -407,7 +407,7 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
  *(.comment)
  .comment       0x0000000000000000       0x2a /usr/lib/gcc/x86_64-linux-gnu/7/crtbegin.o
                                          0x2b (size before relaxing)
- .comment       0x000000000000002a       0x2b /tmp/ccEgiEuu.o
+ .comment       0x000000000000002a       0x2b /tmp/ccfGyjUC.o
  .comment       0x000000000000002a       0x2b /usr/lib/gcc/x86_64-linux-gnu/7/crtend.o
 
 .debug
@@ -425,29 +425,29 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
 .debug_aranges  0x0000000000000000       0x30
  *(.debug_aranges)
  .debug_aranges
-                0x0000000000000000       0x30 /tmp/ccEgiEuu.o
+                0x0000000000000000       0x30 /tmp/ccfGyjUC.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
 .debug_info     0x0000000000000000      0x53d
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x0000000000000000      0x53d /tmp/ccEgiEuu.o
+ .debug_info    0x0000000000000000      0x53d /tmp/ccfGyjUC.o
 
 .debug_abbrev   0x0000000000000000      0x145
  *(.debug_abbrev)
- .debug_abbrev  0x0000000000000000      0x145 /tmp/ccEgiEuu.o
+ .debug_abbrev  0x0000000000000000      0x145 /tmp/ccfGyjUC.o
 
 .debug_line     0x0000000000000000      0x13c
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x0000000000000000      0x13c /tmp/ccEgiEuu.o
+ .debug_line    0x0000000000000000      0x13c /tmp/ccfGyjUC.o
 
 .debug_frame
  *(.debug_frame)
 
 .debug_str      0x0000000000000000      0x3c6
  *(.debug_str)
- .debug_str     0x0000000000000000      0x3c6 /tmp/ccEgiEuu.o
+ .debug_str     0x0000000000000000      0x3c6 /tmp/ccfGyjUC.o
                                         0x431 (size before relaxing)
 
 .debug_loc
